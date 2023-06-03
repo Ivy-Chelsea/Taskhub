@@ -1,19 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.secret_key='894ad1df46d08f691c788a0e3a5d1701'
+app.secret_key = '894ad1df46d08f691c788a0e3a5d1701'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
 
-#class to store user info 
+
+# class to store user info
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
 
-#Class to store created tasks
+
+# Class to store created tasks
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
@@ -21,13 +22,14 @@ class Task(db.Model):
     due_date = db.Column(db.String(80))
     priority = db.Column(db.String(20))
     labels = db.Column(db.String(200))
-    
+
     def __init__(self, title, description, due_date, priority, labels):
         self.title = title
         self.description = description
         self.due_date = due_date
         self.priority = priority
         self.labels = labels
+
 
 @app.route('/')
 def index():
@@ -39,13 +41,13 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-	 # Check if the username already exists
+        # Check if the username already exists
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             flash('Username already exists', 'error')
             return redirect(url_for('login'))
 
-        #Create a new user
+        # Create a new user
         user = User(username=username, password=password)
         db.session.add(user)
         db.session.commit()
@@ -65,22 +67,22 @@ def login():
             return 'Invalid username or password'
     return render_template('login.html')
 
+
 @app.route('/tasks', methods=['GET', 'POST'])
 def tasks():
     if request.method == 'POST':
         title = request.form['taskTitle']
         description = request.form['taskDescription']
         due_date = request.form['taskDueDate']
-	priority = request.form['taskPriority']
-	labels = request.form['taskLabels']
+        priority = request.form['taskPriority']
+        labels = request.form['taskLabels']
 
-	task = Task(title=title, description=description, due_date=due_date, priority=priority, labels=labels)
-	db.session.add(task)
-	db.session.commit()
-    
+        task = Task(title=title, description=description, due_date=due_date, priority=priority, labels=labels)
+        db.session.add(task)
+        db.session.commit()
+
     tasks = Task.query.all()
     return render_template('taskhub.html', tasks=tasks)
-  
 
 
 if __name__ == '__main__':

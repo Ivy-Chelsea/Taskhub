@@ -1,42 +1,20 @@
-<!DOCTYPE html>
+iiDOCTYPE html>
 <html>
 <head>
-    <title>Task Hub</title>
-    <link rel="stylesheet" type="text/css" href="taskhub.css">
+    <title>Welcome to TaskHub</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='taskhub.css') }}">
+    
 </head>
 <body>
-    <h1>Task Hub</h1>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('tasks') }}">TaskHub</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- Task Creation Form -->
-    <h2>Create Task</h2>
-    <form id="taskForm">
-        <label for="taskTitle">Title:</label>
-        <input type="text" id="taskTitle" name="taskTitle" required><br>
-
-        <label for="taskDescription">Description:</label>
-        <textarea id="taskDescription" name="taskDescription"></textarea><br>
-
-        <label for="taskDueDate">Due Date:</label>
-        <input type="date" id="taskDueDate" name="taskDueDate"><br>
-
-        <label for="taskPriority">Priority:</label>
-        <select id="taskPriority" name="taskPriority">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-        </select><br>
-
-        <label for="taskLabels">Labels:</label>
-        <input type="text" id="taskLabels" name="taskLabels"><br>
-
-        <button type="submit">Create Task</button>
-    </form>
-
-    <!-- Task List -->
-    <h2>Task List</h2>
-    <div id="taskList">
-        <!-- Tasks will be dynamically added here -->
-    </div>
+    <h1>Welcome to TaskHub!</h1>
 
     <script src="static/taskhub.js"></script>
 </body>
