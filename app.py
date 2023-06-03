@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.secret_key='894ad1df46d08f691c788a0e3a5d1701'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
 
@@ -22,6 +23,13 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+	 # Check if the username already exists
+        existing_user = User.query.filter_by(username=username).first()
+        if existing_user:
+            flash('Username already exists', 'error')
+            return redirect(url_for('login'))
+
+        #Create a new user
         user = User(username=username, password=password)
         db.session.add(user)
         db.session.commit()
