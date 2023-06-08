@@ -69,7 +69,7 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username, password=password).first()
         if user:
-            return render_template('Todo.html')
+            return render_template('successful.html')
         else:
             return 'Invalid username or password'
     return render_template('login.html')
