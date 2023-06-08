@@ -9,7 +9,7 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    return render_template('successful.html')
+    return render_template('register.html')
 
 
 # class to store user info

@@ -1,41 +1,46 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Task Hub</title>
-    <link rel="stylesheet" type="text/css" href="taskhub.css" />
-  </head>
-  <body>
-    <h1>Task Hub</h1>
+{% extends 'base.html' %}
 
-    <!-- Task Creation Form -->
-    <h2>Create Task</h2>
-    <form id="taskForm" method="post">
-      <label form="taskTitle">Title:</label>
-      <input type="text" id="taskTitle" name="taskTitle" required /><br />
-
-      <label form="taskDescription">Description:</label>
-      <textarea id="taskDescription" name="taskDescription"></textarea><br />
-
-      <label form="taskDueDate">Due Date:</label>
-      <input type="date" id="taskDueDate" name="taskDueDate" /><br />
-
-      <label form="taskPriority">Priority:</label>
-      <select id="taskPriority" name="taskPriority">
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option></select
-      ><br />
-
-      <label for="taskLabels">Labels:</label>
-      <input type="text" id="taskLabels"  name="taskLabels" /><br />
-
-      <button type="submit">Create Task</button>
-    </form>
-
-    <!-- Task List -->
-    <h2>Task List</h2>
-    <div id="taskList">
-      <!-- Tasks will be dynamically added here -->
-    </div>
-  </body>
-</html>
+{% block content %}
+  <h2>Task Hub</h2>
+  <form method="POST" action="{{ url_for('tasks') }}">
+    <label for="taskTitle">Title:</label>
+    <input type="text" id="taskTitle" name="taskTitle" required>
+    <br><br>
+    <label for="taskDescription">Description:</label>
+    <textarea id="taskDescription" name="taskDescription"></textarea>
+    <br><br>
+    <label for="taskDueDate">Due Date:</label>
+    <input type="date" id="taskDueDate" name="taskDueDate" required>
+    <br><br>
+    <label for="taskPriority">Priority:</label>
+    <select id="taskPriority" name="taskPriority">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+    <br><br>
+    <label for="taskLabels">Labels:</label>
+    <input type="text" id="taskLabels" name="taskLabels">
+    <br><br>
+    <button type="submit">Create Task</button>
+  </form>
+  <br>
+  <table>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Due Date</th>
+      <th>Priority</th>
+      <th>Labels</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+      <td>{{ task.title }}</td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.due_date }}</td>
+      <td>{{ task.priority }}</td>
+      <td>{{ task.labels }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
