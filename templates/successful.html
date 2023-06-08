@@ -3,20 +3,60 @@
 <head>
     <title>Welcome to TaskHub</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='taskhub.css') }}">
-    
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="{{ url_for('tasks') }}">TaskHub</a></li>
+                <li><a href="{{ url_for('Todo') }}">Todo</a></li>
             </ul>
         </nav>
     </header>
 
     <h1>Welcome to TaskHub!</h1>
 
-    <script src="static/taskhub.js"></script>
+    <p>TaskHub is a powerful tool for staying organized and productive. With TaskHub, you can easily manage your to-do list, track due dates, and collaborate with others to get things done faster.</p>
+
+    <a href="{{ url_for('register') }}" class="cta-button">Get Started</a>
+
+    <h2>Features</h2>
+
+    <ul>
+        <li>Task organization and prioritization</li>
+        <li>Due date tracking and reminders</li>
+        <li>Collaboration tools for sharing tasks and delegating work</li>
+        <li>Easy-to-use interface with drag-and-drop functionality</li>
+    </ul>
+
+    <h2>What our users are saying</h2>
+
+    <div class="testimonial">
+        <img src="user1.jpg" alt="User 1">
+        <p>"TaskHub has completely revolutionized the way I work. I used to be overwhelmed by my to-do list, but now I feel in control and productive."</p>
+        <p class="user-name">Jane Doe</p>
+    </div>
+
+    <div class="testimonial">
+        <img src="user2.jpg" alt="User 2">
+        <p>"I love how easy it is to collaborate with my team using TaskHub. We can all see what we're working on and stay on top of deadlines."</p>
+        <p class="user-name">John Smith</p>
+    </div>
+
+    <div class="testimonial">
+        <img src="user3.jpg" alt="User 3">
+        <p>"TaskHub is simply the best task management tool out there. It's intuitive, powerful, and helps me stay focused on what's important."</p>
+        <p class="user-name">Sarah Johnson</p>
+    </div>
+
+    <h2>Connect with us</h2>
+
+    <ul>
+        <li><a href="https://twitter.com/taskhub">Twitter</a></li>
+        <li><a href="https://www.facebook.com/taskhub">Facebook</a></li>
+        <li><a href="https://www.linkedin.com/company/taskhub">LinkedIn</a></li>
+        <li><a href="https://blog.taskhub.com">Blog</a></li>
+    </ul>
+
 </body>
 </html>
 

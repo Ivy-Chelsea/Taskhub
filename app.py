@@ -69,13 +69,13 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username, password=password).first()
         if user:
-            return render_template('successful.html')
+            return render_template('Todo.html')
         else:
             return 'Invalid username or password'
     return render_template('login.html')
 
 
-@app.route('/tasks', methods=['GET', 'POST'])
+@app.route('/Todo', methods=['GET', 'POST'])
 def tasks():
     if request.method == 'POST':
         title = request.form['taskTitle']
@@ -89,7 +89,8 @@ def tasks():
         db.session.commit()
 
     tasks = Task.query.all()
-    return render_template('taskhub.html', tasks=tasks)
+    return render_template('Todo.html', tasks=tasks)
+	
 
 
 if __name__ == '__main__':

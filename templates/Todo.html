@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
- 
-  <h2>Task Hub</h2>
+
+  <h2>Create a new task</h2>
   <form method="POST" action="{{ url_for('tasks') }}">
     <label for="taskTitle">Title:</label>
     <input type="text" id="taskTitle" name="taskTitle" required>
@@ -25,5 +25,9 @@
     <br><br>
     <button type="submit">Create Task</button>
   </form>
-  <br>
+  
+  {% if message %}
+    <p>{{ message }}</p>
+  {% endif %}
+
 {% endblock %}
