@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+ 
   <h2>Task Hub</h2>
   <form method="POST" action="{{ url_for('tasks') }}">
     <label for="taskTitle">Title:</label>
@@ -25,22 +26,4 @@
     <button type="submit">Create Task</button>
   </form>
   <br>
-  <table>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Due Date</th>
-      <th>Priority</th>
-      <th>Labels</th>
-    </tr>
-    {% for task in tasks %}
-    <tr>
-      <td>{{ task.title }}</td>
-      <td>{{ task.description }}</td>
-      <td>{{ task.due_date }}</td>
-      <td>{{ task.priority }}</td>
-      <td>{{ task.labels }}</td>
-    </tr>
-    {% endfor %}
-  </table>
 {% endblock %}

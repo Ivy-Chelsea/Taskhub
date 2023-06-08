@@ -11,7 +11,8 @@
       <li><a href="{{ url_for('tasks', user_id=current_user.id) }}">Tasks</a></li>
       <li><a href="{{ url_for('logout') }}">Logout</a></li>
       {% else %}
-      <li><a href="{{ url_for('register') }}">Register</a></li>
+       <li><a href="{{ url_for('register') }}">register</a></li>
+       <li><a href="{{ url_for('logout') }}">Logout</a></li>
       <li><a href="{{ url_for('login') }}">Login</a></li>
       {% endif %}
     </ul>
