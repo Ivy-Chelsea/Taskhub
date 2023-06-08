@@ -1,9 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import logout_user
-from flask_login import LoginManager,UserMixin
-
-
 
 app = Flask(__name__)
 app.secret_key = '894ad1df46d08f691c788a0e3a5d1701'
@@ -13,31 +9,16 @@ db = SQLAlchemy(app)
 
 @app.route('/')
 def index():
-    return render_template("register.html")
+    return render_template('register.html')
 
-@LoginManager.user_loader
-def load_user(user_id):
-    return User.get(user_id)
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
-
-
-#logout the user 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
 
 # class to store user info
-class User(UserMixin,db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
     Email = db.Column(db.String(80), unique=True, nullable=False)
-    
+
 
 # Class to store created tasks
 class Task(db.Model):
@@ -66,6 +47,12 @@ def register():
         if existing_user:
             flash('Username already exists', 'error')
             return redirect(url_for('login'))
+	 # Check if the email already exists
+        existing_user = User.query.filter_by(Email=Email).first()
+        if existing_user:
+            flash('Email address already exists', 'error')
+            return redirect(url_for('register'))
+
 
         # Create a new user
         user = User(username=username, password=password,Email=Email)
@@ -100,8 +87,9 @@ def tasks():
         task = Task(title=title, description=description, due_date=due_date, priority=priority, labels=labels)
         db.session.add(task)
         db.session.commit()
+
     tasks = Task.query.all()
-    return render_template('taskhub.html')
+    return render_template('taskhub.html', tasks=tasks)
 
 
 if __name__ == '__main__':
