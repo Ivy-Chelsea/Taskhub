@@ -7,11 +7,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
 
 
+@app.route('/')
+def index():
+    return render_template('successful.html')
+
+
 # class to store user info
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
+    Email = db.Column(db.String(80), unique=True, nullable=False)
 
 
 # Class to store created tasks
@@ -30,17 +36,12 @@ class Task(db.Model):
         self.priority = priority
         self.labels = labels
 
-
-@app.route('/')
-def index():
-    return render_template('register.html')
-
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        Email = request.form['Email']
         # Check if the username already exists
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
@@ -48,7 +49,7 @@ def register():
             return redirect(url_for('login'))
 
         # Create a new user
-        user = User(username=username, password=password)
+        user = User(username=username, password=password,Email=Email)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('login'))
