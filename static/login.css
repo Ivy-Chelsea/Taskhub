@@ -1,54 +1,147 @@
-/* login.css */
-
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
-/* Add the default styles for the animation */
-.form-group {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
-}
-.form-group.visible {
-  opacity: 1;
-  transform: none;
+/* General styles */
+* {
+  box-sizing: border-box;
 }
 
-/* Form styles */
-.form-container {
-  max-width: 400px;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header styles */
+header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
 }
 
-.label {
-  font-weight: bold;
+nav ul {
+  display: flex;
 }
 
-.input {
-  border: 1px solid #e2e8f0;
-  padding: 8px;
+nav li {
+  margin-left: 20px;
+}
+
+nav li:first-child {
+  margin-left: 0;
+}
+
+nav a {
+  padding: 10px;
+}
+
+nav a:hover {
+  background-color: #eee;
+}
+
+/* Login form styles */
+main {
+  background-color: #f5f5f5;
+  min-height: calc(100vh - 130px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background-color: #fff;
+  padding: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
   width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
 }
 
-.button {
-  background-color: #4299e1;
+button[type="submit"] {
+  background-color: #333;
   color: #fff;
-  padding: 8px 16px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.button:hover {
-  background-color: #3182ce;
+button[type="submit"]:hover {
+  background-color: #222;
 }
 
 /* Footer styles */
-.footer {
-  background-color: #f7fafc;
+footer {
+  background-color: #333;
+  color: #fff;
   padding: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: #718096;
 }
 
+.footer-container{
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-container p {
+  margin: 0;
+}
+
+.footer-container ul {
+  display: flex;
+}
+
+.footer-container li {
+  margin-left: 20px;
+}
+
+.footer-container li:first-child {
+  margin-left: 0;
+}
+
+.footer-container a {
+  color: #fff;
+  padding: 10px;
+}
+
+.footer-container a:hover {
+  background-color: #eee;
+  color: #333;
+}
