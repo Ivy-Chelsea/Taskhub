@@ -1,3 +1,19 @@
+/* login.css */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Add the default styles for the animation */
+.form-group {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+.form-group.visible {
+  opacity: 1;
+  transform: none;
+}
 
 /* Form styles */
 .form-container {
