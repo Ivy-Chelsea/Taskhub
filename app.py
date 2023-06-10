@@ -17,17 +17,6 @@ db = SQLAlchemy(app)
 class User(db.Model):
     """
     A class used to represent a user in the database.
-
-    Attributes
-    ----------
-    id : int
-        The unique id of the user.
-    username : str
-        The username of the user.
-    password : str
-        The password of the user.
-    email : str
-        The email address of the user.
     """
 
     id = db.Column(db.Integer, primary_key=True)
@@ -40,21 +29,6 @@ class User(db.Model):
 class Task(db.Model):
     """
     A class used to represent a task in the database.
-
-    Attributes
-    ----------
-    id : int
-        The unique id of the task.
-    title : str
-        The title of the task.
-    description : str
-        The description of the task.
-    due_date : str
-        The due date of the task.
-    priority : str
-        The priority level of the task (e.g. high, medium, low).
-    labels : str
-        The labels associated with the task.
     """
 
     id = db.Column(db.Integer, primary_key=True)
@@ -67,19 +41,6 @@ class Task(db.Model):
     def __init__(self, title, description, due_date, priority, labels):
         """
         Initializes a new instance of the Task class.
-
-        Parameters
-        ----------
-        title : str
-            The title of the task.
-        description : str
-            The description of the task.
-        due_date : str
-            The due date of the task.
-        priority : str
-            The priority level of the task (e.g. high, medium, low).
-        labels : str
-            The labels associated with the task.
         """
 
         self.title = title
@@ -106,12 +67,6 @@ def index():
 def register():
     """
     Handles user registration.
-    
-    Returns
-    -------
-    str
-        The rendered login page if the registration is successful.
-        Otherwise, redirects to the login page with an error message.
     """
     if request.method == 'POST':
         username = request.form['username']
@@ -164,11 +119,6 @@ def login():
 def tasks():
     """
     Handles task creation and retrieval.
-    
-    Returns
-    -------
-    str
-        The rendered Todo page with all tasks retrieved fromthe database.
     """
     if request.method == 'POST':
         title = request.form['taskTitle']
