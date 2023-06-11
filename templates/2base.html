@@ -15,18 +15,17 @@
             <div class="navbar-end">
               <div class="navbar-item">
                 {% if current_user %}
-                <a href="{{ url_for('register', user_id=current_user.id) }}" class="button is-link is-outlined">
+                <a href="{{ url_for('tasks', user_id=current_user.id) }}" class="button is-link is-outlined">
+                  Tasks
+                </a>
+                <a href="{{ url_for('logout') }}" class="button is-danger is-outlined">
+                  Logout
+                </a>
+                <a href="{{ url_for('register') }}" class="button is-link is-outlined">
                   Register
                 </a>
-                <a href="{{ url_for('login',user_id=current_user.id) }}" class="button is-danger is-outlined">
+                <a href="{{ url_for('login') }}" class="button is-primary">
                   Login
-                </a>
-                {% else %}
-                <a href="{{ url_for('Todo',user_id=current_user.id) }}" class="button is-link is-outlined">
-                  Task
-                </a>
-                <a href="{{ url_for('logout') }}" class="button is-primary">
-                  Logout
                 </a>
                 {% endif %}
               </div>

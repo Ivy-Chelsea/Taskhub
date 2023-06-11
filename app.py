@@ -94,7 +94,7 @@ def register():
         last_name = request.form['last_name']
         username = request.form['username']
         password = request.form['password']
-        email = request.form['Email']
+        email = request.form['email']
 
         # Validate the email address
         if '@' not in email:
@@ -139,10 +139,15 @@ def login():
         if user:
             # Log in the user
             login_user(user)
-            return redirect(url_for('tasks'))
+            return redirect(url_for('successful'))
         else:
             flash('Invalid username or password', 'error')
     return render_template('login.html')
+
+@app.route('/successful')
+def successful():
+    return render_template('loginsuccessful.html')
+
 
 
 @app.route('/logout')
@@ -177,4 +182,6 @@ def tasks():
 
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
