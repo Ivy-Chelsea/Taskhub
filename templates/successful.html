@@ -1,48 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome to TaskHub</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Todo.css') }}">
-    <script src="taskhub.js"></script>
-</head>
-<body>
-    <header>
-    <div class="sidebar">
-	<ul>
-        <a href="{{ url_for('index') }}">Register</a>
-        <a href="#">Home</a>
-        <a href="#">Tasks</a>
-        <a href="#">Settings</a>
-        <a href="#">Helpdesk</a>
-	<ul>
-    <div>
-    </header>
+{% extends "base.html" %}
 
-    <div class="main-content">
-        <h1>Welcome to TaskHub!</h1>
+{% block content %}
+  <h1 class="title">
+    Welcome To Taskhub {{current_user.username}}!
+  </h1>
 
-        <p>TaskHub is a powerful tool for staying organized and productive. With TaskHub, you can easily manage your to-do list, track due dates, and collaborate with others to get things done faster.</p>
+  <p>
+    TaskHub is a powerful tool for staying organized and productive. With TaskHub, you can easily manage your to-do list, track due dates, and collaborate with others to get things done faster.
+  </p>
 
-        <h2>Features</h2>
+  <h2>Features</h2>
 
-        <ul>
-            <li>Task organization and prioritization</li>
-            <li>Due date tracking and reminders</li>
-            <li>Collaboration tools for sharing tasks and delegating work</li>
-            <li>Easy-to-use interface with drag-and-drop functionality</li>
-        </ul>
-            
-            <p>"TaskHub has completely revolutionized the way I work. I used to be overwhelmed by my to-do list, but now I feel in control and productive."</p>
-           
+  <ul>
+    <li>Task organization and prioritization</li>
+    <li>Due date tracking and reminders</li>
+    <li>Collaboration tools for sharing tasks and delegating work</li>
+    <li>Easy-to-use interface with drag-and-drop functionality</li>
+  </ul>
 
-        <h2>Connect with us</h2>
+  <p>
+    "TaskHub has completely revolutionized the way I work. I used to be overwhelmed by my to-do list, but now I feel in control and productive."
+  </p>
 
-        <ul>
-            <li><a href="https://twitter.com/taskhub">Twitter</a></li>
-            <li><a href="https://www.facebook.com/taskhub">Facebook</a></li>
-            <li><a href="https://www.linkedin.com/company/taskhub">LinkedIn</a></li>
-            <li><a href="https://blog.taskhub.com">Blog</a></li>
-        </ul>
-    </div>
-</body>
-</html>
+  <h2>Connect with us</h2>
+
+  <ul>
+    <li><a href="https://twitter.com/taskhub">Twitter</a></li>
+    <li><a href="https://www.facebook.com/taskhub">Facebook</a></li>
+    <li><a href="https://www.linkedin.com/company/taskhub">LinkedIn</a></li>
+    <li><a href="https://blog.taskhub.com">Blog</a></li>
+  </ul>
+{% endblock %}

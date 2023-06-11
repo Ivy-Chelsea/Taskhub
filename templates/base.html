@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <meta charset="UTF-8">
@@ -13,23 +14,30 @@
         <div class="container">
           <div class="navbar-menu">
             <div class="navbar-end">
+              {% if current_user.is_authenticated %}
               <div class="navbar-item">
-                {% if current_user %}
-                <a href="{{ url_for('register', user_id=current_user.id) }}" class="button is-link is-outlined">
-                  Register
-                </a>
-                <a href="{{ url_for('login',user_id=current_user.id) }}" class="button is-danger is-outlined">
-                  Login
-                </a>
-                {% else %}
-                <a href="{{ url_for('Todo',user_id=current_user.id) }}" class="button is-link is-outlined">
+                <a href="{{ url_for('tasks', user_id=current_user.id) }}" class="button is-link is-outlined">
                   Task
                 </a>
-                <a href="{{ url_for('logout') }}" class="button is-primary">
+              </div>
+              <div class="navbar-item">
+                <a href="{{ url_for('logout') }}" class="button is-danger is-outlined">
                   Logout
                 </a>
-                {% endif %}
               </div>
+              {% endif %}
+              {% if not current_user.is_authenticated %}
+              <div class="navbar-item">
+                <a href="{{ url_for('register') }}" class="button is-link is-outlined">
+                  Register
+                </a>
+              </div>
+              <div class="navbar-item">
+                <a href="{{ url_for('login') }}" class="button is-danger is-outlined">
+                  Login
+                </a>
+              </div>
+              {% endif %}
             </div>
           </div>
         </div>
