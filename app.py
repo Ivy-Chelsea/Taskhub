@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect, url_for, flash,session
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 
 app = Flask(__name__)
 
@@ -14,15 +15,28 @@ db = SQLAlchemy(app)
 
 
 # Define User class to store user information
-class User(db.Model):
+class User(db.Model, UserMixin):
     """
     A class used to represent a user in the database.
     """
 
     id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(80), nullable=False)
+    last_name = db.Column(db.String(80), nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(80), unique=True, nullable=False)
+
+    def __init__(self, first_name, last_name, username, password, email):
+        """
+        Initializes a new instance of the User class.
+        """
+
+        self.first_name = first_name
+        self.last_name = last_name
+        self.username = username
+        self.password = password
+        self.email = email
 
 
 # Define Task class to store created tasks
@@ -50,17 +64,24 @@ class Task(db.Model):
         self.labels = labels
 
 
+# Create login manager object
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
 @app.route('/')
 def index():
     """
-    Renders the registration page.
-    
-    Returns
-    -------
-    str
-        The rendered registration page.
+    Renders the registration page if the user is not logged in, otherwise redirects to the task page.
     """
-    return render_template('register.html')
+   #if current_user.is_authenticated:
+        #return redirect(url_for('tasks'))
+    return render_template('index.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -69,11 +90,13 @@ def register():
     Handles user registration.
     """
     if request.method == 'POST':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
         username = request.form['username']
         password = request.form['password']
         email = request.form['Email']
 
-         # Validate the email address
+        # Validate the email address
         if '@' not in email:
             flash('Invalid email address', 'error')
             return redirect(url_for('register'))
@@ -96,12 +119,11 @@ def register():
             return redirect(url_for('register'))
 
         # Create a new user
-        user = User(username=username, password=password, email=email)
+        user = User(first_name=first_name, last_name=last_name, username=username, password=password, email=email)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('login'))
-    return render_template('login.html')
-    
+    return render_template('register.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -109,22 +131,32 @@ def login():
     """
     Handles user login.
     """
-    
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username, password=password).first()
         if user:
-            # Store the user's username in the session
-            session['username'] = username
-            return render_template('successful.html')
-            flash(f'Welcome back, {username}!', 'success')
+            # Log in the user
+            login_user(user)
+            return redirect(url_for('tasks'))
         else:
-            flash('Invalid username or password','error')
+            flash('Invalid username or password', 'error')
     return render_template('login.html')
 
 
-@app.route('/Todo', methods=['GET', 'POST'])
+@app.route('/logout')
+@login_required
+def logout():
+    """
+    Handles user logout.
+    """
+    logout_user()
+    return redirect(url_for('login'))
+
+
+@app.route('/tasks', methods=['GET', 'POST'])
+@login_required
 def tasks():
     """
     Handles task creation and retrieval.
@@ -141,13 +173,8 @@ def tasks():
         db.session.commit()
 
     tasks = Task.query.all()
-    return render_template('Todo.html', tasks=tasks)
+    return render_template('tasks.html', tasks=tasks)
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        # Create all database tables before running the app
-        db.create_all()
-
-    # Run the app in debug mode on port 8000
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
