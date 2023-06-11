@@ -90,8 +90,9 @@ def settings():
     if request.method == 'POST':
         first_name = request.form['first_name']
         last_name = request.form['last_name']
+        username= request.form['username']
         email = request.form['email']
-        new_password = request.form['new_password']
+        password = request.form['new_password']
         confirm_new_password = request.form['confirm_new_password']
 
         if not first_name:
@@ -100,49 +101,20 @@ def settings():
             flash('Last name is required', 'danger')
         elif not email:
             flash('Email is required', 'danger')
-        elif new_password != confirm_new_password:
+        elif password != confirm_new_password:
             flash('Passwords do not match', 'danger')
         else:
             current_user.first_name = first_name
             current_user.last_name = last_name
             current_user.email = email
-            if new_password:
-                db.session.commit()
+            if password:
+                updated = User(first_name=first_name, last_name=last_name, username=username, password=password, email=email
+                db.session.add(updated)
+		db.session.commit()
             flash('Your settings have been updated', 'success')
             return redirect(url_for('settings'))
 
     return render_template('settings.html')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
