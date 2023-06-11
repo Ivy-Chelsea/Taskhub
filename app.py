@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash,session
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -71,7 +71,17 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        email = request.form['email']
+        email = request.form['Email']
+
+         # Validate the email address
+        if '@' not in email:
+            flash('Invalid email address', 'error')
+            return redirect(url_for('register'))
+
+        # Validate the password
+        if len(password) < 8:
+            flash('Password must be at least 8 characters long', 'error')
+            return redirect(url_for('register'))
 
         # Check if the username already exists
         existing_user = User.query.filter_by(username=username).first()
@@ -91,25 +101,24 @@ def register():
         db.session.commit()
         return redirect(url_for('login'))
     return render_template('login.html')
+    
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
     Handles user login.
-    
-    Returns
-    -------
-    str
-        The rendered successful page if the login is successful.
-        Otherwise, returns an error message.
     """
+    
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username, password=password).first()
         if user:
+            # Store the user's username in the session
+            session['username'] = username
             return render_template('successful.html')
+            flash(f'Welcome back, {username}!', 'success')
         else:
             flash('Invalid username or password','error')
     return render_template('login.html')
@@ -141,4 +150,4 @@ if __name__ == '__main__':
         db.create_all()
 
     # Run the app in debug mode on port 8000
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=5000)
