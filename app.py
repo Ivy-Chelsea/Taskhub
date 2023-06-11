@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 
@@ -79,18 +80,22 @@ def index():
     """
     Renders the registration page if the user is not logged in, otherwise redirects to the task page.
     """
-   #if current_user.is_authenticated:
-        #return redirect(url_for('tasks'))
-    return render_template('index.html')
+    if current_user.is_authenticated:
+        return render_template('index.html')
+    else:
+        return render_template('index.html')
 
-#Settings for the user account 
+@app.route('/successful')
+def successful():
+    return render_template('successful.html')
+
+
 @app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
     if request.method == 'POST':
         first_name = request.form['first_name']
         last_name = request.form['last_name']
-        username= request.form['username']
         email = request.form['email']
         password = request.form['new_password']
         confirm_new_password = request.form['confirm_new_password']
@@ -104,22 +109,22 @@ def settings():
         elif password != confirm_new_password:
             flash('Passwords do not match', 'danger')
         else:
+            # Check if email already exists for a different user
+            existing_user = User.query.filter(User.email == email, User.id != current_user.id).first()
+            if existing_user:
+                flash('Email address already exists', 'error')
+                return redirect(url_for('settings'))
+
             current_user.first_name = first_name
             current_user.last_name = last_name
             current_user.email = email
             if password:
-                updated = User(first_name=first_name, last_name=last_name, username=username, password=password, email=email)
-                db.session.add(updated)
-                db.session.commit()
+                current_user.password = generate_password_hash(password)
+            db.session.commit()
             flash('Your settings have been updated', 'success')
             return redirect(url_for('settings'))
 
     return render_template('settings.html')
-
-
-
-
-
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -146,22 +151,32 @@ def register():
 
         # Check if the username already exists
         existing_user = User.query.filter_by(username=username).first()
+
+
+
         if existing_user:
-            flash('Username already exists', 'error')
-            return redirect(url_for('login'))
+            flash('The username already exists. Please choose a different one.', 'error')
+            return redirect(url_for('register'))
 
         # Check if the email already exists
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
-            flash('Email address already exists', 'error')
+            flash('The email address already exists. Please choose a different one.', 'error')
             return redirect(url_for('register'))
 
         # Create a new user
-        user = User(first_name=first_name, last_name=last_name, username=username, password=password, email=email)
-        db.session.add(user)
+        new_user = User(first_name=first_name, last_name=last_name, username=username, password=generate_password_hash(password), email=email)
+        db.session.add(new_user)
         db.session.commit()
+
+        # Log the user in and redirect to the home page
+        login_user(new_user)
+        flash('Registration successful!', 'success')
         return redirect(url_for('login'))
+
     return render_template('register.html')
+
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -169,23 +184,22 @@ def login():
     """
     Handles user login.
     """
-
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user = User.query.filter_by(username=username, password=password).first()
+
+        # Find the user by username
+        user = User.query.filter_by(username=username).first()
+
+        # Check if the user exists and the password is correct
         if user:
-            # Log in the user
             login_user(user)
+            flash('Login successful!', 'success')
             return redirect(url_for('successful'))
         else:
             flash('Invalid username or password', 'error')
+
     return render_template('login.html')
-
-@app.route('/successful')
-def successful():
-    return render_template('successful.html')
-
 
 
 @app.route('/logout')
@@ -195,31 +209,43 @@ def logout():
     Handles user logout.
     """
     logout_user()
-    return redirect(url_for('login'))
+    return render_template('index.html')
 
 
-@app.route('/tasks', methods=['GET', 'POST'])
+
+@app.route('/tasks')
 @login_required
 def tasks():
     """
-    Handles task creation and retrieval.
+    Renders the task page.
     """
-    if request.method == 'POST':
-        title = request.form['taskTitle']
-        description = request.form['taskDescription']
-        due_date = request.form['taskDueDate']
-        priority = request.form['taskPriority']
-        labels = request.form['taskLabels']
-
-        task = Task(title=title, description=description, due_date=due_date, priority=priority, labels=labels)
-        db.session.add(task)
-        db.session.commit()
-
     tasks = Task.query.all()
     return render_template('tasks.html', tasks=tasks)
 
 
+@app.route('/create_task', methods=['GET', 'POST'])
+@login_required
+def create_task():
+    """
+    Handles task creation.
+    """
+    if request.method == 'POST':
+        title = request.form['title']
+        description = request.form['description']
+        due_date = request.form['due_date']
+        priority = request.form['priority']
+        labels = request.form['labels']
+
+        # Create a new task
+        new_task = Task(title=title, description=description, due_date=due_date, priority=priority, labels=labels)
+        db.session.add(new_task)
+        db.session.commit()
+
+        flash('Task created!', 'success')
+        return redirect(url_for('tasks'))
+
+    return render_template('create_task.html')
+
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
