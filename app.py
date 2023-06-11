@@ -83,6 +83,72 @@ def index():
         #return redirect(url_for('tasks'))
     return render_template('index.html')
 
+#Settings for the user account 
+@app.route('/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+    if request.method == 'POST':
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        email = request.form['email']
+        new_password = request.form['new_password']
+        confirm_new_password = request.form['confirm_new_password']
+
+        if not first_name:
+            flash('First name is required', 'danger')
+        elif not last_name:
+            flash('Last name is required', 'danger')
+        elif not email:
+            flash('Email is required', 'danger')
+        elif new_password != confirm_new_password:
+            flash('Passwords do not match', 'danger')
+        else:
+            current_user.first_name = first_name
+            current_user.last_name = last_name
+            current_user.email = email
+            if new_password:
+                db.session.commit()
+            flash('Your settings have been updated', 'success')
+            return redirect(url_for('settings'))
+
+    return render_template('settings.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -146,7 +212,7 @@ def login():
 
 @app.route('/successful')
 def successful():
-    return render_template('loginsuccessful.html')
+    return render_template('successful.html')
 
 
 
