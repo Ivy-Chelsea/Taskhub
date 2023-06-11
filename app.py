@@ -108,9 +108,9 @@ def settings():
             current_user.last_name = last_name
             current_user.email = email
             if password:
-                updated = User(first_name=first_name, last_name=last_name, username=username, password=password, email=email
+                updated = User(first_name=first_name, last_name=last_name, username=username, password=password, email=email)
                 db.session.add(updated)
-		db.session.commit()
+                db.session.commit()
             flash('Your settings have been updated', 'success')
             return redirect(url_for('settings'))
 
