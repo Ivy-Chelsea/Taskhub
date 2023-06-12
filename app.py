@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash,check_password_hash
 
 app = Flask(__name__)
 
@@ -189,10 +189,10 @@ def login():
         password = request.form['password']
 
         # Find the user by username
-        user = User.query.filter_by(username=username,password=password).first()
+        user = User.query.filter_by(username=username).first()
 
         # Check if the user exists and the password is correct
-        if user:
+        if user and check_password_hash(user.password, password):
             login_user(user)
             flash('Login successful!', 'success')
             return redirect(url_for('successful'))
@@ -221,7 +221,7 @@ def tasks():
     Renders the task page.
     """
     tasks = Task.query.all()
-    return render_template('tasks.html', tasks=tasks)
+    return render_template('Todo.html', tasks=tasks)
 
 
 @app.route('/create_task', methods=['GET', 'POST'])
@@ -249,4 +249,6 @@ def create_task():
 
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
