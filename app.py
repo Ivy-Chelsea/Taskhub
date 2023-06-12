@@ -49,15 +49,19 @@ class Task(db.Model):
     """
     A class used to represent a task in the database.
     """
-
+    
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), nullable=False)
-    description = db.Column(db.String(200))
-    due_date = db.Column(db.String(80))
-    priority = db.Column(db.String(20))
-    labels = db.Column(db.String(200))
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(500))
+    due_date = db.Column(db.Date, nullable=False)
+    start_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=False)
+    reminder_date = db.Column(db.Date)
+    priority = db.Column(db.String(10), nullable=False)
+    labels = db.Column(db.String(100))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __init__(self, title, description, due_date, priority, labels):
+    def __init__(self, title, description, due_date, start_time, end_time, reminder_date, priority, labels, user_id):
         """
         Initializes a new instance of the Task class.
         """
@@ -65,8 +69,12 @@ class Task(db.Model):
         self.title = title
         self.description = description
         self.due_date = due_date
+        self.start_time = start_time
+        self.end_time = end_time
+        self.reminder_date = reminder_date
         self.priority = priority
         self.labels = labels
+        self.user_id = user_id
 
 
 # Create login manager object
@@ -217,18 +225,7 @@ def logout():
     return render_template('index.html')
 
 
-
-@app.route('/tasks')
-@login_required
-def tasks():
-    """
-    Renders the task page.
-    """
-    tasks = Task.query.all()
-    return render_template('Todo.html', tasks=tasks)
-
-
-@app.route('/create_task', methods=['GET', 'POST'])
+@app.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def create_task():
     """
@@ -237,19 +234,23 @@ def create_task():
     if request.method == 'POST':
         title = request.form['title']
         description = request.form['description']
-        due_date = request.form['due_date']
+        due_date = datetime.strptime(request.form['due_date'], '%Y-%m-%d').date()
+        start_time = datetime.strptime(request.form['start_time'], '%H:%M').time()
+        end_time = datetime.strptime(request.form['end_time'], '%H:%M').time()
+        reminder_date = datetime.strptime(request.form['reminder_date'], '%Y-%m-%d').date() if request.form['reminder_date'] else None
         priority = request.form['priority']
         labels = request.form['labels']
+        user_id = current_user.id
 
         # Create a new task
-        new_task = Task(title=title, description=description, due_date=due_date, priority=priority, labels=labels)
+        new_task = Task(title=title, description=description, due_date=due_date, start_time=start_time, end_time=end_time, reminder_date=reminder_date, priority=priority, labels=labels, user_id=user_id)
         db.session.add(new_task)
         db.session.commit()
 
         flash('Task created!', 'success')
         return redirect(url_for('tasks'))
 
-    return render_template('create_task.html')
+    return render_template('Todo.html')
 
 
 if __name__ == '__main__':
