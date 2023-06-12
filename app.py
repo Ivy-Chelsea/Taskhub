@@ -179,6 +179,7 @@ def register():
 
 
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -196,7 +197,6 @@ def login():
             login_user(user)
             flash('Login successful!', 'success')
             return redirect(url_for('successful'))
-       
         else:
             flash('Invalid username or password', 'error')
 
