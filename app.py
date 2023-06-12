@@ -14,6 +14,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 # Create SQLAlchemy database object
 db = SQLAlchemy(app)
 
+@app.route('/landing')
+def landing_page():
+    return render_template('landing.html')
+
 
 # Define User class to store user information
 class User(db.Model, UserMixin):
