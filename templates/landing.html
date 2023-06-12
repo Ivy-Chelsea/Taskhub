@@ -10,7 +10,7 @@
   <div class="container">
     <div class="header-content">
       <div class="logo">
-        <img src="logo.png" alt="TaskHub Logo">
+         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="TaskHub Logo">
         <h1>TaskHub</h1>
       </div>
       <nav class="navigation">
@@ -41,23 +41,23 @@
   <section id="features" class="features">
 	<h2>Why TaskHub</h2>
     <div class="feature">
-      <img src="UI.jpeg" alt="UI">
+      <img src="{{ url_for('static', filename='images/UI.jpeg') }}" alt="UI">
       <h2>Intuitive Interface</h2>
       <p>TaskHub offers a user-friendly interface that makes task management a breeze. Stay organized with drag-and-drop functionality and easily track progress.</p>
     </div>
     <div class="feature">
-      <img src="workflows.jpeg" alt="Workflows">
+      <img src="{{ url_for('static', filename='images/workflows.jpeg') }}" alt="Worksflows">
       <h2>Collaborative Workflows</h2>
       <p>Enable seamless collaboration with your team. Assign tasks, set deadlines, and communicate effortlessly within TaskHub, ensuring everyone stays on the same page.</p>
     </div>
     <div class="feature">
-      <img src="Notifications.jpg" alt="Notifications">
+      <img src="{{ url_for('static', filename='images/Notifications.jpg') }}" alt="Notifications">
       <h2>Smart Notifications</h2>
       <p>Stay informed about task updates and deadlines with TaskHub's smart notifications. Never miss an important update or deadline again.</p>
     </div>
 	<div class="feature">
-		<img src="Centralized.jpeg" alt="Centralized">
-      <h2>Centralized Task Management</h2>
+                <img src="{{ url_for('static', filename='images/Centralized.jpeg') }}" alt="Centralized">
+		<h2>Centralized Task Management</h2>
       <p>Keep all your tasks in one place and gain a clear overview of your workload. From personal to professional tasks, TaskHub ensures that nothing slips through the cracks.</p>
     </div>
   </section>
@@ -66,12 +66,12 @@
   <section class="testimonials">
     <h2>What Our Users Say</h2>
     <div class="testimonial">
-      <img src="P1.jpeg" alt="P1">
+      <img src="{{ url_for('static', filename='images/P1.jpeg') }}" alt="P1">
       <p>"TaskHub has transformed the way we manage our projects. It's intuitive, feature-rich, and has greatly improved our team's productivity."</p>
       <span class="user-name">Ian Otieno, Freelancer</span>
     </div>
     <div class="testimonial">
-      <img src="P2.jpeg" alt="P2">
+      <img src="{{ url_for('static', filename='images/P2.jpeg') }}" alt="P2">
       <p>"TaskHub is the best task management system I've used. It's helped me stay organized, prioritize tasks, and achieve my goals more efficiently."</p>
       <span class="user-name">Claret, Freelancer</span>
     </div>
@@ -81,7 +81,7 @@
   <section class="cta">
     <h2>Ready to Boost Your Productivity?</h2>
     <p>Sign up for TaskHub today and experience a seamless task management system that empowers you to accomplish more in less time.</p>
-    <a href="index.html" class="cta-button">Sign Up Now</a>
+   <a href="{{ url_for('register') }}" class="cta-button">Sign Up Now</a>
   </section>
 
   <script src="script.js"></script>
