@@ -52,7 +52,7 @@
         {% for message in get_flashed_messages() %}
         <div class="notification is-{{ message[0] }}">
           <button class="delete"></button>
-          {{ message[1] }}
+          {{ message }}
         </div>
         {% endfor %}
         {% block content %}{% endblock %}

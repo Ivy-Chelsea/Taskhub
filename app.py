@@ -189,15 +189,18 @@ def login():
         password = request.form['password']
 
         # Find the user by username
-        user = User.query.filter_by(username=username).first()
+        user = User.query.filter_by(username=username,password=password).first()
 
         # Check if the user exists and the password is correct
         if user:
             login_user(user)
             flash('Login successful!', 'success')
             return redirect(url_for('successful'))
-        else:
-            flash('Invalid username or password', 'error')
+        
+        if password != User.password:
+            flash('Invalid Password','error')
+    else:
+        flash('Invalid username or password', 'error')
 
     return render_template('login.html')
 
