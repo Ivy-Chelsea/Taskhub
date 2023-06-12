@@ -196,11 +196,9 @@ def login():
             login_user(user)
             flash('Login successful!', 'success')
             return redirect(url_for('successful'))
-        
-        if password != User.password:
-            flash('Invalid Password','error')
-    else:
-        flash('Invalid username or password', 'error')
+       
+        else:
+            flash('Invalid username or password', 'error')
 
     return render_template('login.html')
 
