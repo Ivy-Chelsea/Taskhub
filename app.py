@@ -94,9 +94,9 @@ def index():
     Renders the registration page if the user is not logged in, otherwise redirects to the task page.
     """
     if current_user.is_authenticated:
-        return render_template('index.html')
+        return render_template('landing.html')
     else:
-        return render_template('index.html')
+        return render_template('landing.html')
 
 @app.route('/successful')
 def successful():
@@ -220,7 +220,7 @@ def logout():
     Handles user logout.
     """
     logout_user()
-    return render_template('index.html')
+    return render_template('landing.html')
 
 
 @app.route('/tasks', methods=['GET', 'POST'])
@@ -231,7 +231,7 @@ def tasks():
     """
     if request.method == 'POST':
         title = request.form.get('tasktitle')
-        description = request.form.get('description')
+        description = request.form.get('taskDescription')
         due_date = datetime.strptime(request.form.get('taskDueDate'), '%Y-%m-%d').date()
         start_time = datetime.strptime(request.form.get('taskStartTime'), '%H:%M').time()
         end_time = datetime.strptime(request.form.get('taskEndTime'), '%H:%M').time()
