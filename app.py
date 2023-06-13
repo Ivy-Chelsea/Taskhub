@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, current_user, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash,check_password_hash
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -189,9 +190,6 @@ def register():
     return render_template('register.html')
 
 
-
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -232,14 +230,14 @@ def create_task():
     Handles task creation.
     """
     if request.method == 'POST':
-        title = request.form['Tasktitle']
-        description = request.form['description']
-        due_date = datetime.strptime(request.form['due_date'], '%Y-%m-%d').date()
-        start_time = datetime.strptime(request.form['start_time'], '%H:%M').time()
-        end_time = datetime.strptime(request.form['end_time'], '%H:%M').time()
-        reminder_date = datetime.strptime(request.form['reminder_date'], '%Y-%m-%d').date() if request.form['reminder_date'] else None
-        priority = request.form['priority']
-        labels = request.form['labels']
+        title = request.form.get('title')
+        description = request.form.get('description')
+        due_date = datetime.strptime(request.form.get('taskDueDate'), '%Y-%m-%d').date()
+        start_time = datetime.strptime(request.form.get('taskStartTime'), '%H:%M').time()
+        end_time = datetime.strptime(request.form.get('taskEndTime'), '%H:%M').time()
+        reminder_date = datetime.strptime(request.form.get('taskReminderDate'), '%Y-%m-%d').date() if request.form.get('taskReminderDate') else None
+        priority = request.form.get('taskPriority')
+        labels = request.form.get('taskLabels')
         user_id = current_user.id
 
         # Create a new task
@@ -254,6 +252,4 @@ def create_task():
 
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
