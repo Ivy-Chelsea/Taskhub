@@ -225,12 +225,12 @@ def logout():
 
 @app.route('/tasks', methods=['GET', 'POST'])
 @login_required
-def create_task():
+def tasks():
     """
     Handles task creation.
     """
     if request.method == 'POST':
-        title = request.form.get('title')
+        title = request.form.get('tasktitle')
         description = request.form.get('description')
         due_date = datetime.strptime(request.form.get('taskDueDate'), '%Y-%m-%d').date()
         start_time = datetime.strptime(request.form.get('taskStartTime'), '%H:%M').time()
