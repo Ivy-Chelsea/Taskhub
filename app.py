@@ -15,11 +15,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 # Create SQLAlchemy database object
 db = SQLAlchemy(app)
 
-@app.route('/landing')
-def landing_page():
-    return render_template('landing.html')
-
-
 # Define User class to store user information
 class User(db.Model, UserMixin):
     """
@@ -77,26 +72,26 @@ class Task(db.Model):
         self.labels = labels
         self.user_id = user_id
 
-
 # Create login manager object
 login_manager = LoginManager()
 login_manager.init_app(app)
-
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+#Renders the registration page if the user is not logged in, otherwise redirects to the task page.
 @app.route('/')
 def index():
-    """
-    Renders the registration page if the user is not logged in, otherwise redirects to the task page.
-    """
+    
     if current_user.is_authenticated:
         return render_template('landing.html')
     else:
         return render_template('landing.html')
+
+@app.route('/landing')
+def landing_page():
+    return render_template('landing.html')
 
 @app.route('/successful')
 def successful():
@@ -113,6 +108,10 @@ def settings():
         password = request.form['new_password']
         confirm_new_password = request.form['confirm_new_password']
 
+        if len(password) < 8:
+            flash('Password must be at least 8 characters long', 'error')
+            return redirect(url_for('settings'))
+        
         if not first_name:
             flash('First name is required', 'danger')
         elif not last_name:
@@ -152,20 +151,13 @@ def register():
         password = request.form['password']
         email = request.form['email']
 
-        # Validate the email address
-        if '@' not in email:
-            flash('Invalid email address', 'error')
-            return redirect(url_for('register'))
-
-        # Validate the password
+         # Validate the password
         if len(password) < 8:
             flash('Password must be at least 8 characters long', 'error')
             return redirect(url_for('register'))
 
         # Check if the username already exists
         existing_user = User.query.filter_by(username=username).first()
-
-
 
         if existing_user:
             flash('The username already exists. Please choose a different one.', 'error')
@@ -212,23 +204,10 @@ def login():
 
     return render_template('login.html')
 
-
-@app.route('/logout')
-@login_required
-def logout():
-    """
-    Handles user logout.
-    """
-    logout_user()
-    return render_template('landing.html')
-
-
+# Handles task creation. 
 @app.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def tasks():
-    """
-    Handles task creation.
-    """
     if request.method == 'POST':
         title = request.form.get('tasktitle')
         description = request.form.get('taskDescription')
@@ -247,9 +226,15 @@ def tasks():
 
         flash('Task created!', 'success')
         return redirect(url_for('tasks'))
-
     return render_template('Todo.html')
+
+#Handles user logout.
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return render_template('landing.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000,debug=True)

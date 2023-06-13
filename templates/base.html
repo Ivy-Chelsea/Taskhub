@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Task Manager{% endblock %}</title>
-   <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
 </head>
+
 <body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="TaskHub Logo">
+          <h1>TaskHub</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <section class="hero is-primary is-fullheight">
     <div class="hero-head">
       <nav class="navbar">
@@ -17,13 +31,25 @@
               <div class="navbar-item">
                 <a href="{{ url_for('tasks') }}" class="button is-link is-outlined">
                   Task
+              </div>
+              <div class="navbar-item">
+                <a href="#features" class="button is-link is-outlined">
+                  Features
+              </div>
+              <div class="navbar-item">
+                <a href="#about" class="button is-link is-outlined">
+                  About
+              </div>
+              <div class="navbar-item">
+                <a href="#contact" class="button is-link is-outlined">
+                  Contact
+              </div>
+              <div class="navbar-item">
+                <a href="{{ url_for('settings') }}" class="button is-link is-outlined">
+                  settings
                 </a>
               </div>
               <div class="navbar-item">
-              <a href="{{ url_for('settings') }}" class="button is-link is-outlined">
-               settings
-              </a>
-	       <div class="navbar-item">
                 <a href="{{ url_for('logout') }}" class="button is-danger is-outlined">
                   Logout
                 </a>
@@ -59,4 +85,5 @@
     </div>
   </section>
 </body>
+
 </html>

@@ -1,27 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>TaskHub</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
- </head>
+{% extends 'base.html' %}
 
-<!-- Header -->
-<header class="header">
-  <div class="container">
-    <div class="header-content">
-      <div class="logo">
-         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="TaskHub Logo">
-        <h1>TaskHub</h1>
-      </div>
-      <nav class="navigation">
-        <ul>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
+{% block title %}TaskHub{% endblock %}
+
+{% block content %}
+<nav class="navigation">
+</nav>
+</div>
+</div>
 </header>
 
 <body>
@@ -29,36 +14,38 @@
   <section id="about" class="about">
     <div class="about-content">
       <h1>Effortlessly Manage Your Tasks</h1>
-      <p>TaskHub is the ultimate task management system that allows users to create,
-	  <br>manage, and track their tasks and to-do lists
-	  <br>by helping users to set due dates, prioritize tasks, and receive reminders
-.</p>
+      <p>TaskHub is the ultimate task management system that allows users to create, manage, and track their tasks and
+        to-do lists by helping users to set due dates, prioritize tasks, and receive reminders.</p>
       <a href="#features" class="cta-button">Get Started</a>
     </div>
   </section>
 
   <!-- Template 2: Features Section -->
   <section id="features" class="features">
-	<h2>Why TaskHub</h2>
+    <h2>Why TaskHub</h2>
     <div class="feature">
       <img src="{{ url_for('static', filename='images/UI.jpeg') }}" alt="UI">
       <h2>Intuitive Interface</h2>
-      <p>TaskHub offers a user-friendly interface that makes task management a breeze. Stay organized with drag-and-drop functionality and easily track progress.</p>
+      <p>TaskHub offers a user-friendly interface that makes task management a breeze. Stay organized with drag-and-drop
+        functionality and easily track progress.</p>
     </div>
     <div class="feature">
       <img src="{{ url_for('static', filename='images/workflows.jpeg') }}" alt="Worksflows">
       <h2>Collaborative Workflows</h2>
-      <p>Enable seamless collaboration with your team. Assign tasks, set deadlines, and communicate effortlessly within TaskHub, ensuring everyone stays on the same page.</p>
+      <p>Enable seamless collaboration with your team. Assign tasks, set deadlines, and communicate effortlessly within
+        TaskHub, ensuring everyone stays on the same page.</p>
     </div>
     <div class="feature">
       <img src="{{ url_for('static', filename='images/Notifications.jpg') }}" alt="Notifications">
       <h2>Smart Notifications</h2>
-      <p>Stay informed about task updates and deadlines with TaskHub's smart notifications. Never miss an important update or deadline again.</p>
+      <p>Stay informed about task updates and deadlines with TaskHub's smart notifications. Never miss an important
+        update or deadline again.</p>
     </div>
-	<div class="feature">
-                <img src="{{ url_for('static', filename='images/Centralized.jpeg') }}" alt="Centralized">
-		<h2>Centralized Task Management</h2>
-      <p>Keep all your tasks in one place and gain a clear overview of your workload. From personal to professional tasks, TaskHub ensures that nothing slips through the cracks.</p>
+    <div class="feature">
+      <img src="{{ url_for('static', filename='images/Centralized.jpeg') }}" alt="Centralized">
+      <h2>Centralized Task Management</h2>
+      <p>Keep all your tasks in one place and gain a clear overview of your workload. From personal to professional
+        tasks, TaskHub ensures that nothing slips through the cracks.</p>
     </div>
   </section>
 
@@ -67,12 +54,14 @@
     <h2>What Our Users Say</h2>
     <div class="testimonial">
       <img src="{{ url_for('static', filename='images/P1.jpeg') }}" alt="P1">
-      <p>"TaskHub has transformed the way we manage our projects. It's intuitive, feature-rich, and has greatly improved our team's productivity."</p>
+      <p>"TaskHub has transformed the way we manage our projects. It's intuitive, feature-rich, and has greatly improved
+        our team's productivity."</p>
       <span class="user-name">Ian Otieno, Freelancer</span>
     </div>
     <div class="testimonial">
       <img src="{{ url_for('static', filename='images/P2.jpeg') }}" alt="P2">
-      <p>"TaskHub is the best task management system I've used. It's helped me stay organized, prioritize tasks, and achieve my goals more efficiently."</p>
+      <p>"TaskHub is the best task management system I've used. It's helped me stay organized, prioritize tasks, and
+        achieve my goals more efficiently."</p>
       <span class="user-name">Claret, Freelancer</span>
     </div>
   </section>
@@ -80,35 +69,35 @@
   <!-- Template 4: Call to Action (CTA) Section -->
   <section class="cta">
     <h2>Ready to Boost Your Productivity?</h2>
-    <p>Sign up for TaskHub today and experience a seamless task management system that empowers you to accomplish more in less time.</p>
-   <a href="{{ url_for('register') }}" class="cta-button">Sign Up Now</a>
+    <p>Sign up for TaskHub today and experience a seamless task management system that empowers you to accomplish more
+      in less time.</p>
+    <a href="{{ url_for('register') }}" class="cta-button">Sign Up Now</a>
   </section>
 
   <script src="script.js"></script>
-  
+
   <!-- Contact section -->
   <section id="contact" class="contact">
-  <div class="container">
-    <h2>Contact Us</h2>
-    <div class="contact-content">
-      <div class="contact-form">
-        <h3>Send us a message</h3>
-        <form action="submit_form.php" method="POST">
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <input type="text" name="subject" placeholder="Subject" required>
-          <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-          <button type="submit">Send Message</button>
-        </form>
-      </div>
-      <div class="contact-details">
-        <h3>Contact Information</h3>
-        <p>Email: <a href="mailto:ivychelsea20@gmail.com">info@taskhub.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/favour-mogbonjubola-079478245">LinkedIn</a></p>
+    <div class="container">
+      <h2>Contact Us</h2>
+      <div class="contact-content">
+        <div class="contact-form">
+          <h3>Send us a message</h3>
+          <form action="submit_form.php" method="POST">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <input type="text" name="subject" placeholder="Subject" required>
+            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+        <div class="contact-details">
+          <h3>Contact Information</h3>
+          <p>Email: <a href="mailto:info@taskhub.com">info@taskhub.com</a></p>
+          <p>LinkedIn: <a href="https://www.linkedin.com/in/favour-mogbonjubola-079478245">LinkedIn</a></p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
+  </section>
 </body>
-</html>
+{% endblock %}
