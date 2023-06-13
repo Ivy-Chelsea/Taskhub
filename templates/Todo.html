@@ -3,9 +3,9 @@
 {% block content %}
 
   <h2>Create a new task</h2>
-  <form method="POST" action="{{ url_for('tasks') }}">
+  <form method="POST" action="{{ url_for('create_task') }}">
     <label for="taskTitle">Title:</label>
-    <input type="text" id="taskTitle" name="taskTitle" required>
+    <input type="text" id="taskTitle" name=title" required>
     <br><br>
     <label for="taskDescription">Description:</label>
     <textarea id="taskDescription" name="taskDescription"></textarea>
@@ -48,3 +48,4 @@
   {% endif %}
 
 {% endblock %}
+

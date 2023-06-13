@@ -15,7 +15,7 @@
             <div class="navbar-end">
               {% if current_user.is_authenticated %}
               <div class="navbar-item">
-                <a href="{{ url_for('tasks') }}" class="button is-link is-outlined">
+                <a href="{{ url_for('create_task') }}" class="button is-link is-outlined">
                   Task
                 </a>
               </div>

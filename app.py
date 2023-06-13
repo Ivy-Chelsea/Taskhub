@@ -232,7 +232,7 @@ def create_task():
     Handles task creation.
     """
     if request.method == 'POST':
-        title = request.form['title']
+        title = request.form['Tasktitle']
         description = request.form['description']
         due_date = datetime.strptime(request.form['due_date'], '%Y-%m-%d').date()
         start_time = datetime.strptime(request.form['start_time'], '%H:%M').time()
