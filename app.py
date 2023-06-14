@@ -204,7 +204,7 @@ def login():
 
     return render_template('login.html')
 
-# Handles task creation. 
+"""# Handles task creation. 
 @app.route('/tasks', methods=['GET', 'POST'])
 @login_required
 def tasks():
@@ -226,7 +226,7 @@ def tasks():
 
         flash('Task created!', 'success')
         return redirect(url_for('tasks'))
-    return render_template('Todo.html')
+    # return render_template('Todo.html'"""
 
 #Handles user logout.
 @app.route('/logout')
@@ -234,6 +234,115 @@ def tasks():
 def logout():
     logout_user()
     return render_template('landing.html')
+
+
+
+
+
+
+
+# Flask route to display tasks
+@app.route('/tasks', methods=['GET','POST'])
+@login_required
+def tasks():
+    # Retrieve tasks for the current user from the database
+    tasks = Task.query.filter_by(user_id=current_user.id).all()
+
+    # Render the tasks template with the retrieved tasks
+    return render_template('Todo.html', tasks=tasks)
+
+
+# Flask route to handle task deletion
+@app.route('/tasks/delete/<int:task_id>', methods=['POST'])
+@login_required
+def delete_task(task_id):
+    # Retrieve the task to be deleted from the database
+    task = Task.query.filter_by(id=task_id, user_id=current_user.id).first()
+
+    # Delete the task from the database
+    if task:
+        db.session.delete(task)
+        db.session.commit()
+        flash('Task deleted!', 'success')
+    else:
+        flash('Task not found!', 'error')
+
+    # Redirect the user back to the tasks page
+    return redirect(url_for('tasks'))
+
+
+# Flask route to handle task editing
+@app.route('/tasks/edit/<int:task_id>', methods=['GET', 'POST'])
+@login_required
+def edit_task(task_id):
+    # Retrieve the task to be edited from the database
+    task = Task.query.filter_by(id=task_id, user_id=current_user.id).first()
+
+    # Handle POST requests to update the task
+    if request.method == 'POST':
+        title = request.form.get('tasktitle')
+        description = request.form.get('taskDescription')
+        due_date = datetime.strptime(request.form.get('taskDueDate'), '%Y-%m-%d').date()
+        start_time = datetime.strptime(request.form.get('taskStartTime'), '%H:%M').time()
+        end_time = datetime.strptime(request.form.get('taskEndTime'), '%H:%M').time()
+        reminder_date = datetime.strptime(request.form.get('taskReminderDate'), '%Y-%m-%d').date() if request.form.get('taskReminderDate') else None
+        priority = request.form.get('taskPriority')
+        labels = request.form.get('taskLabels')
+
+        # Update the task in the database
+        if task:
+            task.title = title
+            task.description = description
+            task.due_date = due_date
+            task.start_time = start_time
+            task.end_time = end_time
+            task.reminder_date = reminder_date
+            task.priority = priority
+            task.labels = labels
+            db.session.commit()
+            flash('Task updated!', 'success')
+        else:
+            flash('Task not found!', 'error')
+
+        # Redirect the user back to the tasks page
+        return redirect(url_for('tasks'))
+
+    # Render the edit task template with the retrieved task
+    return render_template('edit_task.html', task=task)
+
+
+# Flask route to handle task creation
+@app.route('/tasks/create', methods=['GET', 'POST'])
+@login_required
+def create_task():
+    # Handle POST requests to create a new task
+    if request.method == 'POST':
+        title = request.form.get('tasktitle')
+        description = request.form.get('taskDescription')
+        due_date = datetime.strptime(request.form.get('taskDueDate'), '%Y-%m-%d').date()
+        start_time = datetime.strptime(request.form.get('taskStartTime'), '%H:%M').time()
+        end_time = datetime.strptime(request.form.get('taskEndTime'), '%H:%M').time()
+        reminder_date = datetime.strptime(request.form.get('taskReminderDate'), '%Y-%m-%d').date() if request.form.get('taskReminderDate') else None
+        priority = request.form.get('taskPriority')
+        labels = request.form.get('taskLabels')
+        user_id = current_user.id
+
+        # Create a new task
+        new_task = Task(title=title, description=description, due_date=due_date, start_time=start_time, end_time=end_time, reminder_date=reminder_date, priority=priority, labels=labels, user_id=user_id)
+        db.session.add(new_task)
+        db.session.commit()
+
+        flash('Task created!', 'success')
+        return redirect(url_for('tasks'))
+
+    # Render the create task template
+    return render_template('create_task.html')
+
+
+
+
+
+
 
 
 if __name__ == '__main__':

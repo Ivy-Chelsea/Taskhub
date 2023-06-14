@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tasks</title>
+</head>
+<body>
+    <h1>Tasks</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Reminder Date</th>
+                <th>Priority</th>
+                <th>Labels</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.tasktitle }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.due_date }}</td>
+                <td>{{ task.start_time }}</td>
+                <td>{{ task.end_time }}</td>
+                <td>{{ task.reminder_date }}</td>
+                <td>{{ task.priority }}</td>
+                <td>{{ task.labels }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
