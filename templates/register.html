@@ -1,56 +1,101 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #86608E;
+	  justify-content: centre;
+	  height: 100vh;
+	  display: flex;
+	  align-items: center;
+    }
 
-{% block content %}
-<section class="myform-area">
+    .container {
+      width: 500px;
+	  margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .logo p {
+      color: #333;
+	  font-size: 20px;
+	  font-weight: bold;
+    }
+	
+	.logo {
+      display: flex;
+	  align-items: centre;
+	}
+	
+	.logo img {
+	  width: 60px;
+	  margin-right: 5px;
+	}
+		
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+	  margin: -50px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .register-btn {
+      display: inline-block;
+      background-color: #865fcf;
+      color: #fff;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .register-btn:hover {
+      background-color: #710193;
+    }
+  </style>
+</head>
+<body>
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-6">
-        <div class="form-area register-form">
-          <div class="form-content">
-          </div>
-          <div class="form-input">
-            <h2>Registration Form</h2>
-            <form method="POST">
-              <div class="form-group">
-                <input type="text"  id="" name="first_name" required>
-                <label>First Name</label>
-              </div>
-              <div class="form-group">
-                <input type="text" id="" name="last_name" required>
-                <label>Last Name</label>
-              </div>
-              <div class="form-group">
-                <input type="text" id="" name="username" required>
-                <label>Username</label>
-              </div>
-              <div class="form-group">
-                <input type="email" id="" name="email" required>
-                <label>Email</label>
-              </div>
-              {% if email_error %}
-              <p class="error">{{ email_error }}</p>
-              {% endif %}
-              <div class="form-group">
-                <input type="password" id="" name="password" required>
-                <label>Password</label>
-              </div>
-              <div class="myform-button">
-                <button class="myform-btn" type="submit">Register</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="register-content">
-          <p>Register your credentials here</p>
-          <ul class="social-icons">
-            <li><a href="#" class="facebook"><i class="fa fa-facebook-f"></i><span>Facebook</span></a></li>
-            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i><span>Twitter</span></a></li>
-          </ul>
-        </div>
-      </div>
+	<div class="logo">
+      <img src="images/logo.png" alt="TaskHub Logo">
+	  <p>TaskHub Login</p>
     </div>
+    <form action="login.html">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" required>
+      
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" required>
+      
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <input type="submit" value="Register" class="register-btn">
+    </form>
   </div>
-</section>
-{% endblock %}
+</body>
+</html>
