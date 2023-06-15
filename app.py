@@ -145,11 +145,11 @@ def register():
     Handles user registration.
     """
     if request.method == 'POST':
-        first_name = request.form['first_name']
-        last_name = request.form['last_name']
-        username = request.form['username']
-        password = request.form['password']
-        email = request.form['email']
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        email = request.form.get('email')
 
          # Validate the password
         if len(password) < 8:
