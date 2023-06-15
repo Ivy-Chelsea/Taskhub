@@ -1,9 +1,67 @@
+<style display: none>
 {% extends 'base.html' %}
 
 {% block content %}
+</style>
+<style>
+li {
+  margin-bottom: 10px;
+}
 
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+button[type="submit"] {
+  background-color: 7851A9;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+  
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.form {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-weight: bold;
+}
+
+body {
+  background-color: e6a8d7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.main {
+  background-color: fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0:2);
+  width: 900px;
+}
+
+
+
+</style>
+<div class="main">
 <h2>Create a new task</h2>
-<form method="POST" action="{{ url_for('tasks') }}">
+<form method="POST" action="{{ url_for('tasks') }}"><b>
   <label for="tasktitle">Title:</label>
   <input type="text" id="tasktitle" name="tasktitle" required>
   <br><br>
@@ -40,8 +98,10 @@
   <label for="taskLabels">Labels:</label>
   <input type="text" id="taskLabels" name="taskLabels">
   <br><br>
-  <button type="submit">Create Task</button>
+  <button type="submit">Create Task</button></b>
 </form>
+</div>
+<style display: none>
 <ul>
   {% for task in tasks %}
   <li>{{ task.title }}</li>
@@ -59,3 +119,4 @@
 {% endif %}
 
 {% endblock %}
+</style>
