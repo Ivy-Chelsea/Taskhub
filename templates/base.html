@@ -14,7 +14,7 @@
     <div class="container">
       <div class="header-content">
         <div class="logo">
-          <img src="logo.png" alt="TaskHub Logo">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
           <h1>TaskHub</h1>
         </div>
 		<nav class="navigation">
@@ -35,6 +35,8 @@
 			<li><a href="#register">Signup</a></li>
 			<li><a href="#login">Login</a></li>
 			<style display: none> {% endif %} </style>
+		  </ul>
+		</nav>	
       </div>
     </div>
   </header>
