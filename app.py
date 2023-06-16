@@ -235,16 +235,11 @@ def tasks():
         return redirect(url_for('tasks'))
     return render_template('Todo.html')
 
-@app.route('/edit-task')
-def edit():
-    return render_template('edit_task.html')
-
-
 
 @app.route('/tasks/edit/<int:user_id>', methods=['POST', 'GET'])
 def edit_task(user_id):
     task = Task.query.get_or_404(user_id)
-    user = User.query.get(user_id)
+    user = User.query.get(int(user_id))
    
     
 
@@ -257,12 +252,12 @@ def edit_task(user_id):
         task.reminder_date = request.form['taskReminderDate']
         task.priority = request.form['taskPriority']
         task.labels = request.form['taskLabels']
-        user_id = current_user.id
+       
         db.session.commit()
         return redirect(url_for('index'))
     
 
-    return render_template('edit_task.html', task=task, user=user)
+    return render_template('edit_task.html', task=task, user=user,user_id=current_user.id)
     
 
 @app.route('/tasks/<int:task_id>/delete', methods=['POST'])
