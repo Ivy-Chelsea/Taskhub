@@ -1,70 +1,50 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html>
 
-{% block content %}
-<div class="column is-4 is-offset-4">
-  <h3 class="title">Settings</h3>
-  <div class="box">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <div class="notification is-danger">
-      {{ messages[0] }}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='settings.css')}}">
+</head>
+
+<body>
+  <div class="settings">
+    <!-- Settings Form -->
+    <div class="settings-form">
+      <h2>Settings</h2>
+	  <div class="profile-image">
+        <img src="profile.jpg" alt="Profile Image">
+      </div>
+      <form>
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" name="first-name" required>
+        </div>
+        <div class="form-group">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" name="last-name" required>
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" name="new-password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm New Password</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
+        </div>
+        <button type="submit">Save Changes</button>
+      </form>
     </div>
-    {% endif %}
-    {% endwith %}
-    
-    <form method="POST" action="{{ url_for('settings') }}">
-      <div class="field">
-        <label class="label">First Name</label>
-        <div class="control">
-          <input class="input" type="text" name="first_name" value="{{ current_user.first_name }}"
-            placeholder="Enter your first name">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Last Name</label>
-        <div class="control">
-          <input class="input" type="text" name="last_name" value="{{ current_user.last_name }}"
-            placeholder="Enter your last name">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">username</label>
-        <div class="control">
-          <input class="input" type="text" name="username" value="{{ current_user.username }}"
-            placeholder="Enter your username">
-        </div>
-      </div>
-
-        <div class="field">
-        <label class="label">Email</label>
-        <div class="control">
-          <input class="input" type="email" name="email" value="{{ current_user.email }}"
-            placeholder="Enter your email address">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">New Password</label>
-        <div class="control">
-          <input class="input" type="password" name="new_password" placeholder="Enter a new password" >
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Confirm New Password</label>
-        <div class="control">
-          <input class="input" type="password" name="confirm_new_password" placeholder="Confirm your new password">
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <button class="button is-link">Save Changes</button>
-        </div>
-      </div>
-    </form>
   </div>
-</div>
-{% endblock %}
+</body>
+
+</html>
