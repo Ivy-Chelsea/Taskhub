@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Login Page</title>
+  <title>Signup Page</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -75,15 +75,15 @@
 <body>
   <div class="container">
 	<div class="logo">
-      <img src="images/logo.png" alt="TaskHub Logo">
-	  <p>TaskHub Login</p>
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+	  <p>TaskHub SignUp</p>
     </div>
-    <form action="login.html">
-      <label for="firstName">First Name:</label>
-      <input type="text" id="firstName" name="firstName" required>
+    <form method="POST" action="{{ url_for('register') }}">
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name" name="first_name" required>
       
-      <label for="lastName">Last Name:</label>
-      <input type="text" id="lastName" name="lastName" required>
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name" name="last_name" required>
       
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required>
