@@ -1,35 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<style>
+ body {
+   background-color: #9e7bb3;
+}
+
+.emoji {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.create-task-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #8F509D;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.create-task-button:hover {
+  background-color: #7851A9;
+}
+</style>
+
 <h1 class="title">
   Welcome To Taskhub {{current_user.username}}!
 </h1>
 
-<p>
-  TaskHub is a powerful tool for staying organized and productive. With TaskHub, you can easily manage your to-do list,
-  track due dates, and collaborate with others to get things done faster.
-</p>
 
-<h2>Features</h2>
+<div class="emoji">&#128516;</div>
+     <h2>Start organizing your tasks and stay productive!</h2>
+     <a href="Todo.html" class="create-task-button">Create Task</a>
+</div>
 
-<ul>
-  <li>Task organization and prioritization</li>
-  <li>Due date tracking and reminders</li>
-  <li>Collaboration tools for sharing tasks and delegating work</li>
-  <li>Easy-to-use interface with drag-and-drop functionality</li>
-</ul>
-
-<p>
-  "TaskHub has completely revolutionized the way I work. I used to be overwhelmed by my to-do list, but now I feel in
-  control and productive."
-</p>
-
-<h2>Connect with us</h2>
-
-<ul>
-  <li><a href="https://twitter.com/taskhub">Twitter</a></li>
-  <li><a href="https://www.facebook.com/taskhub">Facebook</a></li>
-  <li><a href="https://www.linkedin.com/company/taskhub">LinkedIn</a></li>
-  <li><a href="https://blog.taskhub.com">Blog</a></li>
-</ul>
 {% endblock %}
