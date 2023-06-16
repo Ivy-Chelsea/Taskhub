@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <a href="{{ url_for('edit_task',user=user ,user_id=current_user.id) }}">Edit Task</a>
+  <a href="{{ url_for('edit_task',user_id=user.id') }}">Edit Task</a>
 <div class="main">
   <h2>Create a new task</h2>
   <form method="POST" action="{{ url_for('tasks') }}">
@@ -52,7 +52,6 @@
       <button type="submit">Create Task</button>
     </b>
   </form>
-
   <ul>
     {% for task in tasks %}
     <li>{{ task.title }}
@@ -61,6 +60,9 @@
         <li>Due Date: {{ task.due_date }}</li>
         <li>Start Time: {{ task.start_time }}</li>
         <li>End Time: {{ task.end_time }}</li>
+        <li>Reminder Date: {{ task.reminder_date }}</li>
+        <li>Priority: {{ task.priority }}</li>
+        <li>Labels: {{ task.labels }}</li>
       </ul>
     </li>
     {% endfor %}

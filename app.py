@@ -252,12 +252,14 @@ def edit_task(user_id):
         task.reminder_date = request.form['taskReminderDate']
         task.priority = request.form['taskPriority']
         task.labels = request.form['taskLabels']
-       
+ 
+        
         db.session.commit()
+        db.session.add()
         return redirect(url_for('index'))
     
 
-    return render_template('edit_task.html', task=task, user=user,user_id=current_user.id)
+    return render_template('edit_task.html', task=task, user=current_user.user,user_id=current_user.id)
     
 
 @app.route('/tasks/<int:task_id>/delete', methods=['POST'])
