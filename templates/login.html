@@ -1,8 +1,6 @@
-<style display: none>
 {% extends 'base.html' %}
 
 {% block content %}
-</style>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +9,10 @@
     body {
       background-color: #86608E;
       font-family: Arial, sans-serif;
-	  display: flex;
-	  align-items: center;
-	  justify-content: center;
-	  height:100 vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
 
     #container {
@@ -25,17 +23,17 @@
       border-radius: 5px;
       margin-top: 100px;
       text-align: center;
-	  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-	
-	#head {
-	  display: flex;
-	  align-items: center;
+
+    #head {
+      display: flex;
+      align-items: center;
     }
 
     #logo {
-	  width: 60px;
-	  margin-right: 5px;
+      width: 60px;
+      margin-right: 5px;
     }
 
     #login-title {
@@ -48,7 +46,7 @@
     input[type="password"] {
       width: 100%;
       padding: 10px;
-	  margin: -50px;
+      margin: -50px;
       margin-bottom: 10px;
       border-radius: 3px;
       border: 1px solid #ccc;
@@ -71,20 +69,22 @@
 </head>
 <body>
   <div id="container">
-	<div class="head" id="head">
-    <img src="logo.png" alt="TaskHub Logo" id="logo">
-    <h2 id="login-title">TaskHub Login</h2>
-	</div>
-	<br> <br>
-    <form action="successful.html">
+    <div class="head" id="head">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+      <h2 id="login-title">TaskHub Login</h2>
+    </div>
+    <br> <br>
+    <form method="POST" action="{{ url_for('login') }}">
       <input type="text" name="username" placeholder="Username" required><br>
-	  <br><br>
+      <br><br>
       <input type="password" name="password" placeholder="Password" required><br>
-      <input type="submit" value="Login">
+      <input type="submit" value="Login" class="register-btn">
     </form>
   </div>
 </body>
 </html>
-<style display: none>
-{%endblock%}
+{% endblock %}
+
+<style type="text/css">
+  display: none;
 </style>

@@ -1,122 +1,119 @@
-<style display: none>
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-</style>
 <style>
-li {
-  margin-bottom: 10px;
-}
+  li {
+    margin-bottom: 10px;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
 
-button[type="submit"] {
-  background-color: 7851A9;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+  button[type="submit"] {
+    background-color: #7851A9;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
   
-input[type="text"],
-textarea,
-select {
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 10px;
-}
+  input[type="text"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
 
-.form {
-  margin-bottom: 20px;
-}
+  .form {
+    margin-bottom: 20px;
+  }
 
-.label {
-  display: block;
-  font-weight: bold;
-}
+  .label {
+    display: block;
+    font-weight: bold;
+  }
 
-body {
-  background-color: e6a8d7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-}
+  body {
+    background-color: #e6a8d7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
 
-.main {
-  background-color: fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0:2);
-  width: 900px;
-}
-
-
-
+  .main {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 900px;
+  }
 </style>
+
 <div class="main">
-<h2>Create a new task</h2>
-<form method="POST" action="{{ url_for('tasks') }}"><b>
-  <label for="tasktitle">Title:</label>
-  <input type="text" id="tasktitle" name="tasktitle" required>
-  <br><br>
-  <label for="taskDescription">Description:</label>
-  <textarea id="taskDescription" name="taskDescription"></textarea>
-  <br><br>
-  <label for="taskDueDate">Due Date:</label>
-  <input type="date" id="taskDueDate" name="taskDueDate" required>
-  <br><br>
-  <label for="taskStartTime">Start Time:</label>
-  <input type="time" id="taskStartTime" name="taskStartTime" required>
-  <input type="radio" id="start-am" name="start-am-pm" value="am" checked>
-  <label for="start-am">AM</label>
-  <input type="radio" id="start-pm" name="start-am-pm" value="pm">
-  <label for="start-pm">PM</label>
-  <br><br>
-  <label for="taskEndTime">End Time:</label>
-  <input type="time" id="taskEndTime" name="taskEndTime" required>
-  <input type="radio" id="end-am" name="end-am-pm" value="am" checked>
-  <label for="end-am">AM</label>
-  <input type="radio" id="end-pm" name="end-am-pm" value="pm">
-  <label for="end-pm">PM</label>
-  <br><br>
-  <label for="taskReminderDate">Reminder Date:</label>
-  <input type="date" id="taskReminderDate" name="taskReminderDate">
-  <br><br>
-  <label for="taskPriority">Priority:</label>
-  <select id="taskPriority" name="taskPriority">
-    <option value="low">Low</option>
-    <option value="medium">Medium</option>
-    <option value="high">High</option>
-  </select>
-  <br><br>
-  <label for="taskLabels">Labels:</label>
-  <input type="text" id="taskLabels" name="taskLabels">
-  <br><br>
-  <button type="submit">Create Task</button></b>
-</form>
-</div>
-<style display: none>
-<ul>
-  {% for task in tasks %}
-  <li>{{ task.title }}</li>
+  <h2>Create a new task</h2>
+  <form method="POST" action="{{ url_for('tasks') }}">
+    <b>
+      <label for="tasktitle">Title:</label>
+      <input type="text" id="tasktitle" name="tasktitle" required>
+      <br><br>
+      <label for="taskDescription">Description:</label>
+      <textarea id="taskDescription" name="taskDescription"></textarea>
+      <br><br>
+      <label for="taskDueDate">Due Date:</label>
+      <input type="date" id="taskDueDate" name="taskDueDate" required>
+      <br><br>
+      <label for="taskStartTime">Start Time:</label>
+      <input type="time" id="taskStartTime" name="taskStartTime" required>
+      <input type="radio" id="start-am" name="start-am-pm" value="am" checked>
+      <label for="start-am">AM</label>
+      <input type="radio" id="start-pm" name="start-am-pm" value="pm">
+      <label for="start-pm">PM</label>
+      <br><br>
+      <label for="taskEndTime">End Time:</label>
+      <input type="time" id="taskEndTime" name="taskEndTime" required>
+      <input type="radio" id="end-am" name="end-am-pm" value="am" checked>
+      <label for="end-am">AM</label>
+      <input type="radio" id="end-pm" name="end-am-pm" value="pm">
+      <label for="end-pm">PM</label>
+      <br><br>
+      <label for="taskReminderDate">Reminder Date:</label>
+      <input type="date" id="taskReminderDate" name="taskReminderDate">
+      <br><br>
+      <label for="taskPriority">Priority:</label>
+      <select id="taskPriority" name="taskPriority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+      <br><br>
+      <label for="taskLabels">Labels:</label>
+      <input type="text" id="taskLabels" name="taskLabels">
+      <br><br>
+      <button type="submit">Create Task</button>
+    </b>
+  </form>
+
   <ul>
-    <li>Description: {{ task.description }}</li>
-    <li>Due Date: {{ task.due_date }}</li>
-    <li>Start Time: {{ task.start_time }}</li>
-    <li>End Time: {{ task.end_time }}</li>
-
+    {% for task in tasks %}
+    <li>{{ task.title }}
+      <ul>
+        <li>Description: {{ task.description }}</li>
+        <li>Due Date: {{ task.due_date }}</li>
+        <li>Start Time: {{ task.start_time }}</li>
+        <li>End Time: {{ task.end_time }}</li>
+      </ul>
+    </li>
+    {% endfor %}
   </ul>
-  {% endfor %}
-</ul>
-{% if message %}
-<p>{{ message }}</p>
-{% endif %}
 
+  {% if message %}
+  <p>{{ message }}</p>
+  {% endif %}
+</div>
 {% endblock %}
-</style>

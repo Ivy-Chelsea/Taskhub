@@ -72,6 +72,9 @@ class Task(db.Model):
         self.labels = labels
         self.user_id = user_id
 
+    def __repr__(self):
+        return f'<Task {self.id}: {self.title}>'
+
 # Create login manager object
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -227,6 +230,38 @@ def tasks():
         flash('Task created!', 'success')
         return redirect(url_for('tasks'))
     return render_template('Todo.html')
+
+
+@app.route('/tasks/<int:task_id>/edit', methods=['POST', 'GET'])
+def edit_task(task_id):
+    task = Task.query.get_or_404(task_id)
+
+    if request.method == 'POST':
+        task.title = request.form['tasktitle']
+        task.description = request.form['taskDescription']
+        task.due_date = request.form['taskDueDate']
+        task.start_time = request.form['taskStartTime']
+        task.end_time = request.form['taskEndTime']
+        task.reminder_date = request.form['taskReminderDate']
+        task.priority = request.form['taskPriority']
+        task.labels = request.form['taskLabels']
+
+        db.session.commit()
+        return redirect(url_for('index'))
+
+    return render_template('edit_task.html', task=task)
+
+
+
+@app.route('/tasks/<int:task_id>/delete', methods=['POST'])
+def delete_task(task_id):
+    task = Task.query.get_or_404(task_id)
+    db.session.delete(task)
+    db.session.commit()
+
+    return redirect(url_for('index'))
+
+
 #Handles user logout.
 @app.route('/logout')
 @login_required
