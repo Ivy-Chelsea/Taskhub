@@ -1,6 +1,4 @@
-{% extends "base.html" %}
 
-{% block content %}
 <style>
   input[type="text"],
   textarea,
@@ -52,7 +50,7 @@
 
 <div class="main">
   <h2>Edit Task</h2>
-  <form method="POST" action="{{ url_for('edit_task', task_id=task.id) }}">
+  <form method="POST" action="{{ url_for('edit_task', user_id=user.id) }}">
     <b>
       <label for="tasktitle">Title:</label>
       <input type="text" id="tasktitle" name="tasktitle" value="{{ task.title }}" required>
@@ -94,4 +92,3 @@
     </b>
   </form>
 </div>
-{% endblock %}

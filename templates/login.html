@@ -65,16 +65,11 @@
     input[type="submit"]:hover {
       background-color: #710193;
     }
-    
-    body {
-      display: none;
-    }
   </style>
 </head>
 <body>
   <div id="container">
     <div class="head" id="head">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
       <h2 id="login-title">TaskHub Login</h2>
     </div>
     <br> <br>
@@ -88,3 +83,7 @@
 </body>
 </html>
 {% endblock %}
+
+<style type="text/css">
+  display: none;
+</style>
