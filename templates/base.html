@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Task Manager{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  <link rel="stylesheet" href="base.css">
 </head>
 
 <body>
@@ -14,64 +14,31 @@
     <div class="container">
       <div class="header-content">
         <div class="logo">
-          <img src="{{ url_for('static', filename='images/logo.png') }}" alt="TaskHub Logo">
+          <img src="logo.png" alt="TaskHub Logo">
           <h1>TaskHub</h1>
         </div>
+		<nav class="navigation">
+		  <ul>
+			<style display: none>{% if current_user.is_authenticated %}</style>
+			<div class="search-bar">
+              <input type="text" placeholder="Search">
+            </div>
+		    <li><a href="#Todo">Home</a></li>
+			<li><a href="#Todo">Tasks</a></li>
+			<li><a href="#notifications">&#128276;</a></li>
+			<li><a href="#settings">Settings</a></li>
+			<li><a href="#login">Logout</a></li>
+			<style display: none>
+			{% endif %}
+			{% if not current_user.is_authenticated %}
+			</style>
+			<li><a href="#register">Signup</a></li>
+			<li><a href="#login">Login</a></li>
+			<style display: none> {% endif %} </style>
       </div>
     </div>
   </header>
 
-  <section class="hero is-primary is-fullheight">
-    <div class="hero-head">
-      <nav class="navbar">
-        <div class="container">
-          <div class="navbar-menu">
-            <div class="navbar-end">
-              {% if current_user.is_authenticated %}
-              <div class="navbar-item">
-                <a href="{{ url_for('tasks') }}" class="button is-link is-outlined">
-                  Task
-              </div>
-              <div class="navbar-item">
-                <a href="#features" class="button is-link is-outlined">
-                  Features
-              </div>
-              <div class="navbar-item">
-                <a href="#about" class="button is-link is-outlined">
-                  About
-              </div>
-              <div class="navbar-item">
-                <a href="#contact" class="button is-link is-outlined">
-                  Contact
-              </div>
-              <div class="navbar-item">
-                <a href="{{ url_for('settings') }}" class="button is-link is-outlined">
-                  settings
-                </a>
-              </div>
-              <div class="navbar-item">
-                <a href="{{ url_for('logout') }}" class="button is-danger is-outlined">
-                  Logout
-                </a>
-              </div>
-              {% endif %}
-              {% if not current_user.is_authenticated %}
-              <div class="navbar-item">
-                <a href="{{ url_for('register') }}" class="button is-link is-outlined">
-                  Register
-                </a>
-              </div>
-              <div class="navbar-item">
-                <a href="{{ url_for('login') }}" class="button is-danger is-outlined">
-                  Login
-                </a>
-              </div>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-      </nav>
-    </div>
     <div class="hero-body">
       <div class="container has-text-centered">
         {% for message in get_flashed_messages() %}
