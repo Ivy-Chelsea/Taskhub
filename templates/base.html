@@ -23,17 +23,17 @@
 			<div class="search-bar">
               <input type="text" placeholder="Search">
             </div>
-		    <li><a href="#Todo">Home</a></li>
-			<li><a href="#Todo">Tasks</a></li>
+		  <li><a href="{{ url_for ('landing_page') }} ">Home</a></li>
+			<li><a href="{{ url_for('tasks') }}">Tasks</a></li>
 			<li><a href="#notifications">&#128276;</a></li>
-			<li><a href="#settings">Settings</a></li>
-			<li><a href="#login">Logout</a></li>
+			<li><a href="{{ url_for('settings')}}">Settings</a></li>
+			<li><a href="{{ url_for('logout')}}">Logout</a></li>
 			<style display: none>
 			{% endif %}
 			{% if not current_user.is_authenticated %}
 			</style>
-			<li><a href="#register">Signup</a></li>
-			<li><a href="#login">Login</a></li>
+			<li><a href="{{ url_for('register') }}">Signup</a>
+			<li><a href="{{ url_for('login') }}">Login</a></li>
 			<style display: none> {% endif %} </style>
 		  </ul>
 		</nav>	
