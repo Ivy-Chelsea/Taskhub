@@ -1,4 +1,15 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Edit Task</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+  
+</body>
+</html>
 <style>
   input[type="text"],
   textarea,
@@ -50,7 +61,7 @@
 
 <div class="main">
   <h2>Edit Task</h2>
-  <form method="POST" action="{{ url_for('edit_task',user_id=user.id),user=user }}">
+  <form method="POST" action="{{ url_for('edit_task',user_id=user.id,user=user) }}">
     <b>
       <label for="tasktitle">Title:</label>
       <input type="text" id="tasktitle" name="tasktitle" value="{{ task.title }}" required>

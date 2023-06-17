@@ -2,13 +2,14 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Task Manager{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='Todo.css')}}">
 </head>
 <body>
 
-  <a href="{{ url_for('edit_task',user_id=current_user.id,user=user) }}">Edit Task</a>
+  <a href="{{ url_for('edit_task',user_id=current_user.id,user=user_current) }}">Edit Task</a>
 <div class="main">
   <h2>Create a new task</h2>
   <form method="POST" action="{{ url_for('tasks') }}">
