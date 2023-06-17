@@ -57,3 +57,44 @@
   border-radius: 5px;
   margin-right: 10px;
 }
+
+.notification {
+    position: relative;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+.notification button.delete {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+  }
+
+.notification.is-success {
+    background-color: #c74848;
+    color: #ffffff;
+  }
+
+.notification.is-info {
+    background-color: #209cee;
+    color: #fff;
+  }
+
+.notification.is-warning {
+    background-color: #ffdd57;
+    color: #363636;
+  }
+
+.notification.is-danger {
+    background-color: #f14668;
+    color: #fff;
+  }

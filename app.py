@@ -1,15 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import (
-    LoginManager,
-    UserMixin,
-    current_user,
-    login_user,
-    logout_user,
-    login_required,
-)
-from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+
+from flask import Flask, flash, redirect, render_template, request, url_for
+from flask_login import (LoginManager, UserMixin, current_user, login_required,
+                         login_user, logout_user)
+from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 
@@ -242,7 +237,7 @@ def login():
         if user and check_password_hash(user.password, password):
             login_user(user)
             flash("Login successful!", "success")
-            return redirect(url_for("successful"))
+            return redirect(url_for("successful",))
         else:
             flash("Invalid username or password", "error")
 
