@@ -1,11 +1,11 @@
 from datetime import datetime
-
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_login import (LoginManager, UserMixin, current_user, login_required,
                          login_user, logout_user)
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 import requests
+
 app = Flask(__name__)
 
 # Set secret key for app
@@ -105,7 +105,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# Renders the registration page if the user is not logged in, otherwise redirects to the task page.
+# Renders the Home page
 @app.route("/")
 def index():
     if current_user.is_authenticated:
@@ -281,9 +281,8 @@ def tasks():
         db.session.commit()
 
         flash("Task created!", "success")
-        return redirect(url_for("tasks"))
+        return redirect(url_for("successful"))
     return render_template("Todo.html")
-
 
 @app.route("/tasks/edit/<int:user_id>", methods=["POST", "GET"])
 def edit_task(user_id):
