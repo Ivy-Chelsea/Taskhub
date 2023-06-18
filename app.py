@@ -314,29 +314,6 @@ def delete_task(task_id):
 
     return redirect(url_for("index"))
 
-@app.route('/submit_form', methods=['POST'])
-def submit_form():
-    name = request.form['name']
-    email = request.form['email']
-    subject = request.form['subject']
-    message = request.form['message']
-    
-    # Make a call to the FormSubmit API to send the form data
-    try:
-        response = requests.post('https://formsubmit.co/api/get-submissions/API KEY HERE')', 
-                                 data={'_subject': subject, 
-                                       'name': name, 
-                                       'email': email, 
-                                       'message': message},
-                                 headers={'Authorization': 'db1058210e752f96315453140a9c0e57f3a9e61d24d3691c5a9508950a787bf8'})
-        response.raise_for_status() # Raise an exception for any HTTP errors
-        return f'Form submitted successfully!'
-    except requests.exceptions.HTTPError as error:
-        return f'Error submitting form. Please try again. Reason: {error}'
-    except requests.exceptions.RequestException as error:
-        return f'Error submitting form. Please try again. Reason: {error}'
-    except Exception as error:
-        return f'Error submitting form. Please try again. Reason: {error}'
 
 # Handles user logout.
 @app.route("/logout")
