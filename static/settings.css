@@ -53,3 +53,48 @@ button[type="submit"] {
   color: #fff;
   cursor: pointer;
 }
+.notification {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.notification button.delete {
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.notification.is-success {
+  background-color: #f02cbf;
+  color: #e01c1c;
+}
+
+.notification.is-info {
+  background-color: #f02cbf;
+  color: #790707;
+}
+
+.notification.is-warning {
+  background-color: #f02cbf;
+  color: #c71919;
+}
+
+.notification.is-danger {
+  background-color: #e74c3c;
+  color: #f02cbf;
+}
+
+/* Override default text color for flash messages */
+.notification.is-success,
+.notification.is-info,
+.notification.is-warning,
+.notification.is-danger {
+  color: #ec0a0a;
+}

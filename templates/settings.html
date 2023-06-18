@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Settings</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='settings.css')}}">
+  <link rel="icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}" type="image/png">
 </head>
 
 <body>
@@ -14,32 +15,40 @@
     <div class="settings-form">
       <h2>Settings</h2>
 	  <div class="profile-image">
-        <img src="profile.jpg" alt="Profile Image">
       </div>
-      <form>
+      {% for message in get_flashed_messages() %}
+          <div class="notification is-{{ message }}">
+            <button class="delete"></button>
+            {{ message }}
+          </div>
+          {% endfor %}
+          <form method="POST" action="{{ url_for('settings') }}">
+            <div class="field">
         <div class="form-group">
           <label for="first-name">First Name</label>
-          <input type="text" id="first-name" name="first-name" required>
+          <input class="input" type="text" name="first_name" value="{{ current_user.first_name }}"
+          placeholder="Enter your first name">
         </div>
         <div class="form-group">
           <label for="last-name">Last Name</label>
-          <input type="text" id="last-name" name="last-name" required>
+          <input class="input" type="text" name="last_name" value="{{ current_user.last_name }}"
+          placeholder="Enter your last name">
         </div>
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" name="username" required>
+          <input class="input" type="text" name="username" value="{{ current_user.username }}">
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
+          <input class="input" type="email" name="email" value="{{ current_user.email }}">
         </div>
         <div class="form-group">
           <label for="new-password">New Password</label>
-          <input type="password" id="new-password" name="new-password" required>
+          <input class="input" type="password" name="confirm_new_password" placeholder="Enter your new password">
         </div>
         <div class="form-group">
           <label for="confirm-password">Confirm New Password</label>
-          <input type="password" id="confirm-password" name="confirm-password" required>
+          <input class="input" type="password" name="new_password" placeholder="Conform Your new password" >
         </div>
         <button type="submit">Save Changes</button>
       </form>

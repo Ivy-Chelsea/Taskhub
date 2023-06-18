@@ -162,7 +162,7 @@ def settings():
                 current_user.password = generate_password_hash(password)
             db.session.commit()
             flash("Your settings have been updated", "success")
-            return redirect(url_for("settings"))
+            return redirect(url_for("successful"))
 
     return render_template("settings.html")
 
@@ -299,20 +299,20 @@ def edit_task(user_id):
         task.priority = request.form["taskPriority"]
         task.labels = request.form["taskLabels"]
         db.session.commit()
-        return redirect(url_for("tasks"))
+        return redirect(url_for("successful"))
 
     return render_template(
         "edit_task.html", task=task, user=current_user, user_id=current_user.id
     )
 
 
-@app.route("/tasks/<int:task_id>/delete", methods=["POST"])
+@app.route("/tasks/delete/<int:task_id>", methods=["GET"])
 def delete_task(task_id):
     task = Task.query.get_or_404(task_id)
     db.session.delete(task)
     db.session.commit()
 
-    return redirect(url_for("index"))
+    return redirect(url_for("successful"))
 
 
 # Handles user logout.
