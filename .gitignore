@@ -1,1 +1,13 @@
-__pycache__/ 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask
+*.pyc
+*.pyo
+*.pyd
+*.pyw
+__pycache__/
+instance/
+.env

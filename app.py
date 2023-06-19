@@ -4,8 +4,11 @@ from flask_login import (LoginManager, UserMixin, current_user, login_required,
                          login_user, logout_user)
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
-import requests
-
+from flask_mail import Mail,Message
+from dotenv import load_dotenv
+import os
+# Load environment variables from .env file
+load_dotenv()
 app = Flask(__name__)
 
 # Set secret key for app
@@ -14,8 +17,29 @@ app.secret_key = "894ad1df46d08f691c788a0e3a5d1701"
 # Set database URI for SQLAlchemy
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 
+#CONFIG FOR EMAIL
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+#Get the username and passwordapi key from .env 
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+
+mail = Mail(app)
+
 # Create SQLAlchemy database object
 db = SQLAlchemy(app)
+
+#Sending Welcome Message
+def send_welcome_email(email):
+    # render the welcome email template
+    message = Message(subject='Welcome to TASKHUB',
+                      sender=app.config['MAIL_USERNAME'],
+                      recipients=[email])
+    message.html = render_template('welcome_email.html')
+
+    # send the email
+    mail.send(message)
 
 
 # Define User class to store user information
@@ -88,7 +112,6 @@ class Task(db.Model):
 
     def __repr__(self):
         return f"<Task {self.id}: {self.title}>"
-
 
 # Create login manager object
 login_manager = LoginManager()
@@ -210,8 +233,10 @@ def register():
             password=generate_password_hash(password),
             email=email,
         )
+        send_welcome_email(email)
         db.session.add(new_user)
         db.session.commit()
+
 
         # Log the user in and redirect to the home page
         login_user(new_user)
