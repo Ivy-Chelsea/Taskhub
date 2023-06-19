@@ -10,7 +10,7 @@ TaskHub is a flexible task management system designed to help individuals and te
 
 # Installation
 - Clone the repository: **"git clone https://github.com/favour-22/TaskHub"**
-- Install dependencies: ***pip install -r requirements.txt***
+- Install dependencies: ***pip -r install requirements.txt***
 - Activate you virtual environment by migrating to ***../venv/Static*** directory and type activate.
 - Start the application by typing ***python app.y***
 - Access the website in browser by copy pasting the provided IP address.
