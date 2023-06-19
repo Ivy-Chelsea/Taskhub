@@ -66,8 +66,22 @@
     input[type="submit"]:hover {
       background-color: #710193;
     }
+    .flash-messages {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px;
+      background-color: #cc0d0d;
+      color: #865fcf;
+      font-size: 16px;
+      text-align: center;
+      z-index: 9999;
+    }
 
-
+    .flash-message {
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 {% with messages = get_flashed_messages() %}
