@@ -285,33 +285,41 @@ def tasks():
     return render_template("Todo.html")
 
 @app.route("/tasks/edit/<int:user_id>", methods=["POST", "GET"])
+@login_required
 def edit_task(user_id):
-    task = Task.query.get_or_404(user_id)
+    task = Task.query.filter_by(user_id=user_id).first()
+
+    if task is None:
+        flash("Task not found.")
+        return redirect(url_for("successful", user_id=current_user.id))
 
     if request.method == "POST":
         task.title = request.form["tasktitle"]
         task.description = request.form["taskDescription"]
-        task.due_date = request.form["taskDueDate"]
-        task.start_time = request.form["taskStartTime"]
-        task.end_time = request.form["taskEndTime"]
-        task.reminder_date = request.form["taskReminderDate"]
+        task.due_date = datetime.strptime(request.form["taskDueDate"], '%Y-%m-%d').date()
+        task.start_time = datetime.strptime(request.form["taskStartTime"], '%H:%M:%S').time()
+        task.end_time = datetime.strptime(request.form["taskEndTime"], '%H:%M:%S').time()
+        task.reminder_date = datetime.strptime(request.form["taskReminderDate"], '%Y-%m-%d').date()
         task.priority = request.form["taskPriority"]
         task.labels = request.form["taskLabels"]
         db.session.commit()
         return redirect(url_for("successful"))
 
-    return render_template(
-        "edit_task.html", task=task, user=current_user, user_id=current_user.id
-    )
+    return render_template( "edit_task.html", task=task, user=current_user, user_id=current_user.id )
 
+@app.route("/tasks/delete/<int:user_id>", methods=["GET"])
+@login_required
+def delete_task(user_id):
+    task = Task.query.filter_by(user_id=user_id).first()
+    if task is None:
+        flash("Task not found.")
+        return redirect(url_for("successful", user_id=current_user.id))
 
-@app.route("/tasks/delete/<int:task_id>", methods=["GET"])
-def delete_task(task_id):
-    task = Task.query.get_or_404(task_id)
     db.session.delete(task)
     db.session.commit()
 
-    return redirect(url_for("successful"))
+    flash("Task deleted successfully.")
+    return redirect(url_for("successful", user_id=current_user.id))
 
 
 # Handles user logout.
